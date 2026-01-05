@@ -1,0 +1,27 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}New Room Type{% endblock %}
+
+{% block body %}
+    <div class="container container-max">
+        <div class="mb-3">
+            <h1 class="h3">New Room Type</h1>
+            <p class="text-muted">Create a new room type for the hotel.</p>
+        </div>
+
+        <div class="card">
+            <div class="card-body">
+                {{ form_start(form) }}
+                    <div class="mb-3">{{ form_row(form.type) }}</div>
+                    <div class="mb-3">{{ form_row(form.capacity) }}</div>
+                    <div class="mb-3">{{ form_row(form.pricePerDay) }}</div>
+
+                    <div class="d-flex gap-2">
+                        <button class="btn btn-primary">Save</button>
+                        <a class="btn btn-outline-secondary" href="{{ path('admin_room_type_index') }}">Back</a>
+                    </div>
+                {{ form_end(form) }}
+            </div>
+        </div>
+    </div>
+{% endblock %}

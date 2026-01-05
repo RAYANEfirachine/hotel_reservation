@@ -1,0 +1,15 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Reservation Created{% endblock %}
+
+{% block body %}
+    <div class="container container-max d-flex justify-content-center">
+        <div class="card w-100" style="max-width:720px">
+            <div class="card-body text-center">
+                <h1 class="h4">Reservation Created</h1>
+                <p class="text-muted">Your reservation was created successfully.</p>
+                <a href="{{ path('client_booking_new') }}" class="btn btn-primary">Create another</a>
+            </div>
+        </div>
+    </div>
+{% endblock %}

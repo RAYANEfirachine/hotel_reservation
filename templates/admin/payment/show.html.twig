@@ -1,0 +1,26 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Payment #{{ payment.id }}{% endblock %}
+
+{% block body %}
+    <h1>Payment #{{ payment.id }}</h1>
+
+    <dl class="row">
+        <dt class="col-sm-3">Reservation</dt>
+        <dd class="col-sm-9">{{ payment.reservation.id }}</dd>
+
+        <dt class="col-sm-3">Amount</dt>
+        <dd class="col-sm-9">{{ payment.amount }}</dd>
+
+        <dt class="col-sm-3">Method</dt>
+        <dd class="col-sm-9">{{ payment.paymentMethod }}</dd>
+
+        <dt class="col-sm-3">Status</dt>
+        <dd class="col-sm-9">{{ payment.paymentStatus }}</dd>
+
+        <dt class="col-sm-3">Date</dt>
+        <dd class="col-sm-9">{{ payment.paymentDate ? payment.paymentDate|date('Y-m-d H:i') : '-' }}</dd>
+    </dl>
+
+    <a href="{{ path('admin_payment_index') }}" class="btn btn-secondary">Back</a>
+{% endblock %}
