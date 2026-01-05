@@ -62,3 +62,21 @@ php -d memory_limit=2G bin/phpunit --colors=always
 -   **CI:** this project includes a GitHub Actions workflow that runs the same command on PHP 8.2 using the repository's `.env.test`/SQLite setup. No external DB service is required.
 
 If you need to run tests using a different DB locally, set `DATABASE_URL` in your environment or `.env.test` accordingly.
+
+## Features
+
+-   Authentication (admin + client)
+-   Room types and rooms management (admin)
+-   Booking / reservation flow (client)
+-   Payments (admin): listing and viewing payments
+
+## Project Status: Completed
+
+The core hotel management system (rooms, reservations, payments, authentication, and admin/client flows) is implemented and functional in the development environment.
+
+## Possible future improvements
+
+-   Add payments create/edit/delete workflows and reconciliation
+-   Improve UI/UX and accessibility across templates
+-   Add more automated tests (edge cases, API, integration)
+-   Add static analysis (PHPStan) and coding style checks (PHP-CS-Fixer) in CI
