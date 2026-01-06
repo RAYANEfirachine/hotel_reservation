@@ -1,0 +1,66 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Welcome to Hotel{% endblock %}
+
+{% block body %}
+    <div class="container container-max">
+        <section class="py-5 text-center">
+            <div class="row justify-content-center">
+                <div class="col-lg-8">
+                    <h1 class="display-5 fw-bold">Hotel</h1>
+                    <p class="lead text-muted">Comfort and service for your perfect stay.</p>
+
+                    <div class="d-flex justify-content-center gap-2 mt-4">
+                        {% if app.user %}
+                            {% if is_granted('ROLE_ADMIN') %}
+                                <a class="btn btn-primary btn-lg" href="{{ path('admin_room_index') }}">Admin Dashboard</a>
+                            {% elseif is_granted('ROLE_CLIENT') %}
+                                <a class="btn btn-primary btn-lg" href="{{ path('client_room_index') }}">Book a room</a>
+                            {% else %}
+                                <a class="btn btn-primary btn-lg" href="{{ path('client_room_index') }}">Book a room</a>
+                            {% endif %}
+                        {% else %}
+                            <a class="btn btn-primary btn-lg" href="{{ path('app_login') }}">Book a room</a>
+                        {% endif %}
+
+                        {% if app.user %}
+                            <a class="btn btn-outline-secondary btn-lg" href="{{ path('app_logout') }}">Logout</a>
+                        {% else %}
+                            <a class="btn btn-light btn-lg" href="{{ path('app_login') }}">Login</a>
+                            <a class="btn btn-outline-primary btn-lg" href="{{ path('app_register') }}">Register</a>
+                        {% endif %}
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section class="py-4">
+            <div class="row g-4">
+                <div class="col-md-4">
+                    <div class="card h-100">
+                        <div class="card-body">
+                            <h5 class="card-title">Comfortable Rooms</h5>
+                            <p class="card-text text-muted">Well-appointed rooms designed for rest and productivity.</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="card h-100">
+                        <div class="card-body">
+                            <h5 class="card-title">Exceptional Service</h5>
+                            <p class="card-text text-muted">Friendly staff ready to assist 24/7.</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="card h-100">
+                        <div class="card-body">
+                            <h5 class="card-title">Great Location</h5>
+                            <p class="card-text text-muted">Close to local attractions and transport links.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </div>
+{% endblock %}
