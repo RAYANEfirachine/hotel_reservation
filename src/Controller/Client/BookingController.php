@@ -10,6 +10,7 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
+use Symfony\Component\Form\FormError;
 
 #[Route('/booking')]
 class BookingController extends AbstractController
@@ -29,13 +30,35 @@ class BookingController extends AbstractController
                 throw $this->createAccessDeniedException();
             }
 
-            $reservation->setUser($user);
-            $em->persist($reservation);
-            $em->flush();
+            // Validate dates and compute total price
+            $checkIn = $reservation->getCheckInDate();
+            $checkOut = $reservation->getCheckOutDate();
+            if ($checkOut <= $checkIn) {
+                $form->addError(new FormError('Check-out date must be after check-in date.'));
+            } else {
+                $interval = $checkIn->diff($checkOut);
+                $days = (int) $interval->days;
+                if ($days <= 0) {
+                    $form->addError(new FormError('Check-out date must be after check-in date.'));
+                } else {
+                    $nights = max(1, $days);
+                    $roomType = $reservation->getRoom()->getRoomType();
+                    $pricePerDay = (float) $roomType->getPricePerDay();
+                    $total = $nights * $pricePerDay;
+                    if ($total <= 0) {
+                        throw new \LogicException('Calculated reservation total must be greater than 0.');
+                    }
+                    $reservation->setTotalPrice(number_format($total, 2, '.', ''));
 
-            $this->addFlash('success', 'Reservation created.');
+                    $reservation->setUser($user);
+                    $em->persist($reservation);
+                    $em->flush();
 
-            return $this->redirectToRoute('client_booking_success');
+                    $this->addFlash('success', 'Reservation created.');
+
+                    return $this->redirectToRoute('client_booking_success');
+                }
+            }
         }
 
         return $this->render('client/booking/new.html.twig', ['form' => $form->createView()]);

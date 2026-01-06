@@ -4,8 +4,10 @@ namespace App\Entity;
 
 use App\Repository\RoomRepository;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 
 #[ORM\Entity(repositoryClass: RoomRepository::class)]
+#[UniqueEntity(fields: ['roomNumber'], message: 'This room number already exists.')]
 class Room
 {
     #[ORM\Id]
@@ -13,7 +15,7 @@ class Room
     #[ORM\Column(type: 'integer')]
     private ?int $id = null;
 
-    #[ORM\Column(type: 'string', length: 50)]
+    #[ORM\Column(type: 'string', length: 50, unique: true)]
     private string $roomNumber;
 
     #[ORM\Column(type: 'string', length: 50)]

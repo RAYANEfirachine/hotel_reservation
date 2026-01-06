@@ -33,10 +33,18 @@
                                     <span class="badge bg-{{ r.status == 'cancelled' ? 'danger' : (r.status == 'confirmed' ? 'success' : 'secondary') }}">{{ r.status }}</span>
                                 </td>
                                 <td class="text-end">
-                                    <form method="post" action="{{ path('client_booking_cancel', {'id': r.id}) }}" onsubmit="return confirm('Cancel reservation?');">
-                                        <input type="hidden" name="_token" value="{{ csrf_token('cancel' ~ r.id) }}">
-                                        <button class="btn btn-sm btn-outline-danger">Cancel</button>
-                                    </form>
+                                    <div class="d-flex justify-content-end gap-2">
+                                        {% if r.status != 'confirmed' %}
+                                            <a href="{{ path('client_payment_show', {'id': r.id}) }}" class="btn btn-sm btn-primary">Pay now</a>
+                                        {% else %}
+                                            <span class="badge bg-success">Paid</span>
+                                        {% endif %}
+
+                                        <form method="post" action="{{ path('client_booking_cancel', {'id': r.id}) }}" onsubmit="return confirm('Cancel reservation?');">
+                                            <input type="hidden" name="_token" value="{{ csrf_token('cancel' ~ r.id) }}">
+                                            <button class="btn btn-sm btn-outline-danger">Cancel</button>
+                                        </form>
+                                    </div>
                                 </td>
                             </tr>
                         {% else %}

@@ -12,6 +12,7 @@
         <div class="card">
             <div class="card-body">
                 {{ form_start(form) }}
+                    {{ form_errors(form) }}
                     <div class="mb-3">{{ form_row(form.roomNumber) }}</div>
                     <div class="mb-3">{{ form_row(form.roomType) }}</div>
                     <div class="d-flex gap-2">
