@@ -29,7 +29,7 @@
                             <li class="nav-item"><a class="nav-link" href="{{ path('admin_room_index') }}">Rooms</a></li>
                             <li class="nav-item"><a class="nav-link" href="{{ path('admin_room_type_index') }}">Room Types</a></li>
                             <li class="nav-item"><a class="nav-link" href="{{ path('admin_payment_index') }}">Payments</a></li>
-                            <li class="nav-item"><a class="nav-link" href="{{ path('admin_room_index') }}">Reservations</a></li>
+                            <li class="nav-item"><a class="nav-link" href="{{ path('admin_reservation_index') }}">Reservations</a></li>
                         {% elseif is_granted('ROLE_CLIENT') %}
                             <li class="nav-item"><a class="nav-link" href="{{ path('client_room_index') }}">Rooms</a></li>
                             <li class="nav-item"><a class="nav-link" href="{{ path('client_booking_my_bookings') }}">My Bookings</a></li>
