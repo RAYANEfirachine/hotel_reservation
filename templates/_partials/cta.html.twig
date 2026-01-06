@@ -1,0 +1,21 @@
+{# CTA partial: decides destination based on user role #}
+<div class="d-flex justify-content-center gap-2 mt-4">
+    {% if app.user %}
+        {% if is_granted('ROLE_ADMIN') %}
+            <a class="btn btn-primary btn-lg" href="{{ path('admin_room_index') }}">Admin Dashboard</a>
+        {% elseif is_granted('ROLE_CLIENT') %}
+            <a class="btn btn-primary btn-lg" href="{{ path('client_room_index') }}">Book a room</a>
+        {% else %}
+            <a class="btn btn-primary btn-lg" href="{{ path('client_room_index') }}">Book a room</a>
+        {% endif %}
+    {% else %}
+        <a class="btn btn-primary btn-lg" href="{{ path('app_login') }}">Book a room</a>
+    {% endif %}
+
+    {% if app.user %}
+        <a class="btn btn-outline-secondary btn-lg" href="{{ path('app_logout') }}">Logout</a>
+    {% else %}
+        <a class="btn btn-light btn-lg" href="{{ path('app_login') }}">Login</a>
+        <a class="btn btn-outline-primary btn-lg" href="{{ path('app_register') }}">Register</a>
+    {% endif %}
+</div>

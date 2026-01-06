@@ -23,6 +23,14 @@ body {
     letter-spacing: -0.02em;
 }
 
+/* Logo */
+.navbar-brand img {
+    height: 32px;
+}
+.brand-title {
+    color: #fff;
+}
+
 /* Navbar */
 .navbar.bg-primary {
     background-color: var(--color-primary) !important;
@@ -32,6 +40,17 @@ body {
 }
 .navbar .nav-link.active {
     font-weight: 600;
+}
+
+/* Hero */
+.hero-illustration {
+    background-image: url("/images/hero.svg");
+    background-size: cover;
+    background-position: center;
+    border-radius: 0.75rem;
+}
+.hero-illustration .display-5 {
+    color: var(--color-primary);
 }
 
 /* Cards */
