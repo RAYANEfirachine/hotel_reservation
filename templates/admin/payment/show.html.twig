@@ -2,25 +2,47 @@
 
 {% block title %}Payment #{{ payment.id }}{% endblock %}
 
+{% block stylesheets %}
+    <link rel="stylesheet" href="{{ asset('css/receipt.css') }}">
+{% endblock %}
+
 {% block body %}
-    <h1>Payment #{{ payment.id }}</h1>
+    <div class="receipt-card">
+        <div class="receipt-header">
+            <div class="receipt-title">
+                <span>OFFICIAL RECEIPT</span>
+                <h2>Transaction #{{ payment.id }}</h2>
+            </div>
+            <div class="status-box">
+                {{ payment.paymentStatus|upper }}
+            </div>
+        </div>
 
-    <dl class="row">
-        <dt class="col-sm-3">Reservation</dt>
-        <dd class="col-sm-9">{{ payment.reservation.id }}</dd>
+        <div class="info-grid">
+            <div class="info-item">
+                <label>Reservation Reference</label>
+                <p>#{{ payment.reservation.id }}</p>
+            </div>
 
-        <dt class="col-sm-3">Amount</dt>
-        <dd class="col-sm-9">{{ payment.amount }}</dd>
+            <div class="info-item">
+                <label>Total Amount Paid</label>
+                <p class="amount">${{ payment.amount }}</p>
+            </div>
 
-        <dt class="col-sm-3">Method</dt>
-        <dd class="col-sm-9">{{ payment.paymentMethod }}</dd>
+            <div class="info-item">
+                <label>Payment Method</label>
+                <p>{{ payment.paymentMethod }}</p>
+            </div>
 
-        <dt class="col-sm-3">Status</dt>
-        <dd class="col-sm-9">{{ payment.paymentStatus }}</dd>
+            <div class="info-item">
+                <label>Transaction Date</label>
+                <p>{{ payment.paymentDate ? payment.paymentDate|date('Y-m-d H:i') : 'N/A' }}</p>
+            </div>
+        </div>
 
-        <dt class="col-sm-3">Date</dt>
-        <dd class="col-sm-9">{{ payment.paymentDate ? payment.paymentDate|date('Y-m-d H:i') : '-' }}</dd>
-    </dl>
-
-    <a href="{{ path('admin_payment_index') }}" class="btn btn-secondary">Back</a>
+        <div class="receipt-footer">
+            <p style="font-size: 11px; color: #bbb; margin-bottom: 20px;">Thank you for choosing our luxury services.</p>
+            <a href="{{ path('admin_payment_index') }}" class="btn-back">Return to Dashboard</a>
+        </div>
+    </div>
 {% endblock %}

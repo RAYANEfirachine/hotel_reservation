@@ -1,15 +1,30 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Reservation Created{% endblock %}
+{% block title %}Reservation Confirmed - LuxeStay{% endblock %}
+
+{% block stylesheets %}
+    <link rel="stylesheet" href="{{ asset('css/booking_success.css') }}">
+{% endblock %}
 
 {% block body %}
-    <div class="container container-max d-flex justify-content-center">
-        <div class="card w-100" style="max-width:720px">
-            <div class="card-body text-center">
-                <h1 class="h4">Reservation Created</h1>
-                <p class="text-muted">Your reservation was created successfully.</p>
-                <a href="{{ path('client_booking_new') }}" class="btn btn-primary">Create another</a>
-            </div>
+<div class="success-wrapper">
+    <div class="success-card">
+        {# أيقونة الصح (يمكنك استخدام FontAwesome أو حرف ✓ بسيط) #}
+        <div class="success-icon">
+            ✓
+        </div>
+
+        <h1>Reservation Created</h1>
+        <p>Your luxury stay at LuxeStay has been successfully secured. A confirmation email with your booking details will be sent to you shortly.</p>
+
+        <div class="success-actions">
+            <a href="{{ path('client_booking_new') }}" class="btn-royal">
+                Create Another Reservation
+            </a>
+            <a href="{{ path('app_home') }}" class="link-secondary">
+                Return to Homepage
+            </a>
         </div>
     </div>
+</div>
 {% endblock %}

@@ -1,18 +1,54 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Reservations{% endblock %}
+{% block title %}Reservations Management{% endblock %}
+
+{% block stylesheets %}
+    {# ربط ملف الـ CSS الجديد #}
+    <link rel="stylesheet" href="{{ asset('css/reservations_list.css') }}">
+{% endblock %}
 
 {% block body %}
-    <div class="container container-max">
-        <div class="mb-3">
-            <h1 class="h3">Reservations</h1>
-            <p class="text-muted">All reservations. Use filters to refine and actions to manage.</p>
-        </div>
-
-        <div class="card">
-            <div class="card-body">
-                <p class="text-muted mb-0">A detailed reservations UI can be implemented here; currently a placeholder.</p>
-            </div>
-        </div>
+<div class="res-dashboard">
+    <div class="res-header">
+        <h1>Reservations</h1>
+        <p class="text-muted">Manage guest stays and room assignments with luxury precision.</p>
     </div>
+
+    <div class="res-grid">
+        {% for reservation in reservations %}
+            <div class="res-card">
+                <span class="status-tag">{{ reservation.status }}</span>
+
+                <span class="guest-name">{{ reservation.user.firstName }} {{ reservation.user.lastName }}</span>
+                <span class="room-type">Room {{ reservation.room.numRoom }} — {{ reservation.room.roomType.type }}</span>
+
+                <div class="res-info-row">
+                    <label>Check In</label>
+                    <span>{{ reservation.checkInDate|date('d M Y') }}</span>
+                </div>
+
+                <div class="res-info-row">
+                    <label>Check Out</label>
+                    <span>{{ reservation.checkOutDate|date('d M Y') }}</span>
+                </div>
+
+                <div class="res-info-row">
+                    <label>Reference</label>
+                    <span>#RES-{{ reservation.id }}</span>
+                </div>
+
+                <span class="res-price">${{ reservation.totalPrice }}</span>
+
+                <div class="res-actions">
+                    <a href="#" class="btn-manage">View Details</a>
+                    <a href="#" class="btn-manage" style="background: transparent; color: var(--deep-black); border: 1px solid var(--border-color);">Edit</a>
+                </div>
+            </div>
+        {% else %}
+            <div class="res-card" style="grid-column: 1 / -1; text-align: center; padding: 100px;">
+                <p>No reservations found at the moment.</p>
+            </div>
+        {% endfor %}
+    </div>
+</div>
 {% endblock %}

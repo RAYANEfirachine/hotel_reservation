@@ -1,25 +1,39 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}New Room{% endblock %}
+{% block title %}Register New Room{% endblock %}
+
+{% block stylesheets %}
+    <link rel="stylesheet" href="{{ asset('css/new_room.css') }}">
+{% endblock %}
 
 {% block body %}
-    <div class="container container-max">
-        <div class="mb-3">
-            <h1 class="h3">New Room</h1>
-            <p class="text-muted">Add a new room to the inventory.</p>
-        </div>
+<div class="entry-page-wrapper">
+    <div class="creation-card">
+        <header class="creation-header">
+            <h1>New Room</h1>
+            <p>Enter the details to expand your hotel's inventory.</p>
+        </header>
 
-        <div class="card">
-            <div class="card-body">
-                {{ form_start(form) }}
-                    <div class="mb-3">{{ form_row(form.roomNumber) }}</div>
-                    <div class="mb-3">{{ form_row(form.roomType) }}</div>
-                    <div class="d-flex gap-2">
-                        <button class="btn btn-primary">Save</button>
-                        <a class="btn btn-outline-secondary" href="{{ path('admin_room_index') }}">Back</a>
-                    </div>
-                {{ form_end(form) }}
+        {{ form_start(form) }}
+            <div class="input-section">
+                {{ form_label(form.roomNumber, 'Designated Room Number') }}
+                {{ form_widget(form.roomNumber, {'attr': {'placeholder': 'e.g. 101, 204...'}}) }}
+                {{ form_errors(form.roomNumber) }}
             </div>
-        </div>
+
+            <div class="input-section">
+                {{ form_label(form.roomType, 'Accommodation Category') }}
+                {{ form_widget(form.roomType) }}
+                {{ form_errors(form.roomType) }}
+            </div>
+
+            {# إذا كان الفورم يحتوي على حقول إضافية مثل السعر أو الحالة، ستظهر تلقائياً هنا #}
+
+            <div class="button-group">
+                <button type="submit" class="btn-save">Confirm & Save</button>
+                <a href="{{ path('admin_room_index') }}" class="btn-cancel">Back</a>
+            </div>
+        {{ form_end(form) }}
     </div>
+</div>
 {% endblock %}

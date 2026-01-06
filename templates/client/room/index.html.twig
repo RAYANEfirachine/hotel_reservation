@@ -1,43 +1,43 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Available Rooms{% endblock %}
+{% block title %}Available Rooms - LuxeStay{% endblock %}
+
+{% block stylesheets %}
+    <link rel="stylesheet" href="{{ asset('css/available_rooms.css') }}">
+{% endblock %}
 
 {% block body %}
-    <div class="container container-max">
-        <div class="mb-3">
-            <h1 class="h3">Available Rooms</h1>
-            <p class="text-muted">Browse available rooms and book your stay.</p>
-        </div>
+<div class="rooms-gallery">
+    <header class="gallery-header">
+        <h1>Available Rooms</h1>
+        <p>Explore our selection of premium suites and rooms</p>
+    </header>
 
-        <div class="row g-3">
-            {% for r in rooms %}
-                <div class="col-12 col-md-6 col-lg-4">
-                    <div class="card h-100">
-                        <div class="card-body d-flex flex-column">
-                            <div class="d-flex justify-content-between align-items-start mb-2">
-                                <div>
-                                    <h5 class="card-title mb-1">Room {{ r.roomNumber }}</h5>
-                                    <div class="text-muted small">{{ r.roomType.type }} · Sleeps {{ r.roomType.capacity }}</div>
-                                </div>
-                                <div class="text-end">
-                                    <div class="h5 mb-1">${{ r.roomType.pricePerDay }}</div>
-                                </div>
-                            </div>
-                            <p class="card-text text-muted mb-3">Comfortable room with essential amenities.</p>
-                            <div class="mt-auto">
-                                <a href="{{ path('client_booking_new') }}" class="btn btn-primary w-100">Book</a>
-                            </div>
-                        </div>
-                    </div>
+    <div class="room-grid">
+        {% for r in rooms %}
+            <article class="room-card">
+                <div class="price-tag">
+                    ${{ r.roomType.pricePerDay }} <span>/ night</span>
                 </div>
-            {% else %}
-                <div class="col-12">
-                    <div class="empty-state">
-                        <div class="icon">🏨</div>
-                        <p class="mb-0">No rooms available.</p>
+
+                <div class="room-card-body">
+                    <span class="room-type-label">{{ r.roomType.type }}</span>
+                    <h2 class="room-title">Room {{ r.roomNumber }}</h2>
+
+                    <div class="room-features">
+                        <p>Accommodates up to {{ r.roomType.capacity }} guests. Experience refined comfort with our premium bedding and signature amenities.</p>
                     </div>
+
+                    <a href="{{ path('client_booking_new') }}" class="btn-book">Book This Room</a>
                 </div>
-            {% endfor %}
-        </div>
+            </article>
+        {% else %}
+            <div class="empty-gallery">
+                <span class="icon">🏨</span>
+                <h3>No Rooms Available</h3>
+                <p>We are currently fully booked. Please check back later or contact us for assistance.</p>
+            </div>
+        {% endfor %}
     </div>
+</div>
 {% endblock %}

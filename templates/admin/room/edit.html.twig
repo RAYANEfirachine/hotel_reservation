@@ -1,25 +1,43 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Edit Room{% endblock %}
+{% block title %}Edit Room #{{ room.numRoom }}{% endblock %}
+
+{% block stylesheets %}
+    <link rel="stylesheet" href="{{ asset('css/edit_room.css') }}">
+{% endblock %}
 
 {% block body %}
-    <div class="container container-max">
-        <div class="mb-3">
-            <h1 class="h3">Edit Room — {{ room.roomNumber }}</h1>
-            <p class="text-muted">Update room details and status.</p>
-        </div>
+<div class="edit-page-wrapper">
+    <div class="form-container">
+        <header class="form-header">
+            <h1>Refine Room Details</h1>
+            <p>Modify the attributes of Room #{{ room.numRoom }} to maintain hotel excellence.</p>
+        </header>
 
-        <div class="card">
-            <div class="card-body">
-                {{ form_start(form) }}
-                    <div class="mb-3">{{ form_row(form.roomNumber) }}</div>
-                    <div class="mb-3">{{ form_row(form.roomType) }}</div>
-                    <div class="d-flex gap-2">
-                        <button class="btn btn-primary">Update</button>
-                        <a class="btn btn-outline-secondary" href="{{ path('admin_room_index') }}">Back</a>
-                    </div>
-                {{ form_end(form) }}
+        {{ form_start(form) }}
+            <div class="form-group-custom">
+                {{ form_label(form.numRoom, 'Room Number') }}
+                {{ form_widget(form.numRoom) }}
             </div>
-        </div>
+
+            <div class="form-group-custom">
+                {{ form_label(form.roomType, 'Category & Tier') }}
+                {{ form_widget(form.roomType) }}
+            </div>
+
+            {# إذا كان لديك حقل للحالة (Status) أضفه هنا #}
+            {% if form.status is defined %}
+            <div class="form-group-custom">
+                {{ form_label(form.status, 'Operational Status') }}
+                {{ form_widget(form.status) }}
+            </div>
+            {% endif %}
+
+            <div class="action-area">
+                <button type="submit" class="btn-update">Save Changes</button>
+                <a href="{{ path('admin_room_index') }}" class="btn-back">Cancel</a>
+            </div>
+        {{ form_end(form) }}
     </div>
+</div>
 {% endblock %}

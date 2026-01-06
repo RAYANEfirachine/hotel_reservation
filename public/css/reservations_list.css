@@ -1,0 +1,131 @@
+@import url('https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700&family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap');
+
+:root {
+    --royal-gold: #c5a059;
+    --deep-black: #1a1a1a;
+    --soft-ivory: #fdfdfb;
+    --border-color: #eeebe3;
+}
+
+.res-dashboard {
+    padding: 40px;
+    background-color: var(--soft-ivory);
+    min-height: 100vh;
+    font-family: 'Plus Jakarta Sans', sans-serif;
+}
+
+.res-header {
+    margin-bottom: 40px;
+    border-left: 5px solid var(--royal-gold);
+    padding-left: 20px;
+}
+
+.res-header h1 {
+    font-family: 'Playfair Display', serif;
+    font-size: 36px;
+    margin: 0;
+    color: var(--deep-black);
+}
+
+/* نظام الشبكة للبطاقات */
+.res-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
+    gap: 25px;
+}
+
+.res-card {
+    background: #fff;
+    border-radius: 20px;
+    border: 1px solid var(--border-color);
+    padding: 25px;
+    transition: all 0.3s ease;
+    position: relative;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.02);
+}
+
+.res-card:hover {
+    transform: translateY(-10px);
+    box-shadow: 0 20px 40px rgba(197, 160, 89, 0.15);
+    border-color: var(--royal-gold);
+}
+
+.res-card .status-tag {
+    position: absolute;
+    top: 20px;
+    right: 20px;
+    padding: 5px 12px;
+    border-radius: 50px;
+    font-size: 11px;
+    font-weight: 700;
+    text-transform: uppercase;
+    background: var(--soft-ivory);
+    color: var(--royal-gold);
+    border: 1px solid var(--royal-gold);
+}
+
+.res-card .guest-name {
+    font-size: 20px;
+    font-weight: 700;
+    margin-bottom: 5px;
+    color: var(--deep-black);
+}
+
+.res-card .room-type {
+    font-size: 13px;
+    color: #888;
+    margin-bottom: 20px;
+    display: block;
+}
+
+.res-info-row {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 15px;
+    padding-bottom: 10px;
+    border-bottom: 1px solid #f9f9f9;
+}
+
+.res-info-row label {
+    font-size: 12px;
+    color: #aaa;
+    text-transform: uppercase;
+}
+
+.res-info-row span {
+    font-size: 14px;
+    font-weight: 600;
+}
+
+.res-price {
+    font-size: 22px;
+    font-weight: 800;
+    color: var(--royal-gold);
+    margin-top: 15px;
+    display: block;
+    text-align: right;
+}
+
+.res-actions {
+    margin-top: 20px;
+    display: flex;
+    gap: 10px;
+}
+
+.btn-manage {
+    flex: 1;
+    padding: 12px;
+    border-radius: 10px;
+    border: none;
+    background: var(--deep-black);
+    color: white;
+    font-weight: 600;
+    cursor: pointer;
+    transition: 0.3s;
+    text-align: center;
+    text-decoration: none;
+}
+
+.btn-manage:hover {
+    background: var(--royal-gold);
+}

@@ -1,63 +1,238 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
     <head>
         <meta charset="UTF-8">
-        <title>{% block title %}Welcome!{% endblock %}</title>
-        <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 128 128%22><text y=%221.2em%22 font-size=%2296%22>⚫️</text><text y=%221.3em%22 x=%220.2em%22 font-size=%2276%22 fill=%22%23fff%22>sf</text></svg>">
-        {% block stylesheets %}
-            <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="" crossorigin="anonymous">
-            <link rel="stylesheet" href="/assets/styles/app.css">
-        {% endblock %}
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <meta http-equiv="X-UA-Compatible" content="ie=edge">
+        <title>{% block title %}LuxeStay - Premium Hotel Reservations{% endblock %}</title>
+        <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 128 128%22><text y=%221.2em%22 font-size=%2296%22>🏨</text></svg>">
+
+        {# الخطوط العالمية للمشروع #}
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700&family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap">
+
+        <style>
+            :root {
+                --primary-gold: #c5a059;
+                --dark-bg: #1a1a1a;
+                --text-gray: #666;
+                --white: #ffffff;
+                --soft-bg: #fdfdfb;
+                --transition: all 0.3s ease;
+            }
+
+            body {
+                margin: 0;
+                padding: 0;
+                font-family: 'Plus Jakarta Sans', sans-serif;
+                background-color: var(--soft-bg);
+                color: var(--dark-bg);
+                display: flex;
+                flex-direction: column;
+                min-height: 100vh;
+            }
+
+            main { flex: 1; }
+
+            /* Navbar Styling */
+            .navbar {
+                background: var(--white);
+                padding: 1rem 2rem;
+                box-shadow: 0 2px 15px rgba(0,0,0,0.05);
+                position: sticky;
+                top: 0;
+                z-index: 1000;
+            }
+
+            .navbar__wrapper {
+                max-width: 1200px;
+                margin: 0 auto;
+                display: flex;
+                justify-content: space-between;
+                align-items: center;
+            }
+
+            .navbar__brand {
+                font-family: 'Playfair Display', serif;
+                font-size: 1.5rem;
+                text-decoration: none;
+                color: var(--dark-bg);
+                font-weight: 700;
+            }
+
+            .navbar__nav {
+                list-style: none;
+                display: flex;
+                gap: 2rem;
+                margin: 0;
+                padding: 0;
+            }
+
+            .navbar__link {
+                text-decoration: none;
+                color: var(--text-gray);
+                font-weight: 500;
+                font-size: 0.9rem;
+                transition: var(--transition);
+            }
+
+            .navbar__link:hover { color: var(--primary-gold); }
+
+            .navbar__actions {
+                display: flex;
+                align-items: center;
+                gap: 1rem;
+            }
+
+            /* Buttons */
+            .btn {
+                padding: 0.6rem 1.2rem;
+                border-radius: 8px;
+                text-decoration: none;
+                font-weight: 600;
+                font-size: 0.85rem;
+                transition: var(--transition);
+                cursor: pointer;
+                border: none;
+            }
+
+            .btn--primary { background: var(--dark-bg); color: var(--white); }
+            .btn--primary:hover { background: var(--primary-gold); }
+
+            .btn--outline {
+                border: 1px solid #ddd;
+                color: var(--text-gray);
+                background: transparent;
+            }
+            .btn--outline:hover { border-color: var(--primary-gold); color: var(--primary-gold); }
+
+            /* Alerts */
+            .alert {
+                padding: 1rem;
+                margin: 1rem auto;
+                max-width: 1200px;
+                border-radius: 10px;
+                text-align: center;
+            }
+            .alert--success { background: #e7f5ea; color: #2d8a39; }
+            .alert--danger { background: #fff5f5; color: #dc2626; }
+
+            /* Footer Styling */
+            footer {
+                background: var(--dark-bg);
+                color: var(--white);
+                padding: 4rem 2rem 2rem;
+                margin-top: 4rem;
+            }
+
+            .footer__wrapper { max-width: 1200px; margin: 0 auto; }
+
+            .footer__content {
+                display: grid;
+                grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+                gap: 3rem;
+                margin-bottom: 3rem;
+            }
+
+            .footer__section h5 {
+                font-family: 'Playfair Display', serif;
+                color: var(--primary-gold);
+                font-size: 1.2rem;
+                margin-bottom: 1.5rem;
+            }
+
+            .footer__link {
+                display: block;
+                color: rgba(255,255,255,0.6);
+                text-decoration: none;
+                margin-bottom: 0.8rem;
+                font-size: 0.9rem;
+                transition: var(--transition);
+            }
+
+            .footer__link:hover { color: var(--white); }
+
+            .footer__divider {
+                border-top: 1px solid rgba(255,255,255,0.1);
+                padding-top: 2rem;
+                text-align: center;
+                font-size: 0.8rem;
+                color: rgba(255,255,255,0.4);
+            }
+        </style>
+
+        {% block stylesheets %}{% endblock %}
 
         {% block javascripts %}
             {% block importmap %}{{ importmap('app') }}{% endblock %}
         {% endblock %}
     </head>
     <body>
-        <nav class="navbar navbar-expand-lg navbar-dark bg-primary sticky-top shadow-sm">
-            <div class="container">
-                {% include '_partials/logo.html.twig' %}
+        <nav class="navbar">
+            <div class="navbar__wrapper">
+                <a href="{{ path('app_home') }}" class="navbar__brand">
+                    🏨 LuxeStay
+                </a>
 
-                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#mainNav" aria-controls="mainNav" aria-expanded="false" aria-label="Toggle navigation">
-                    <span class="navbar-toggler-icon"></span>
-                </button>
+                <ul class="navbar__nav">
+                    <li><a href="{{ path('app_home') }}" class="navbar__link">Home</a></li>
+                    {% if is_granted('ROLE_ADMIN') %}
+                        <li><a href="{{ path('admin_room_index') }}" class="navbar__link">Rooms</a></li>
+                        <li><a href="{{ path('admin_reservation_index') }}" class="navbar__link">Reservations</a></li>
+                        <li><a href="{{ path('admin_room_type_index') }}" class="navbar__link">Categories</a></li>
+                    {% elseif is_granted('ROLE_CLIENT') %}
+                        <li><a href="{{ path('client_room_index') }}" class="navbar__link">Browse Rooms</a></li>
+                        <li><a href="{{ path('client_booking_new') }}" class="navbar__link">Book Now</a></li>
+                    {% endif %}
+                </ul>
 
-                <div class="collapse navbar-collapse" id="mainNav">
-                    <ul class="navbar-nav me-auto mb-2 mb-lg-0">
-                        <li class="nav-item"><a class="nav-link" href="/">Home</a></li>
-                        {% if is_granted('ROLE_ADMIN') %}
-                            <li class="nav-item"><a class="nav-link" href="{{ path('admin_room_index') }}">Rooms</a></li>
-                            <li class="nav-item"><a class="nav-link" href="{{ path('admin_room_type_index') }}">Room Types</a></li>
-                            <li class="nav-item"><a class="nav-link" href="{{ path('admin_payment_index') }}">Payments</a></li>
-                            <li class="nav-item"><a class="nav-link" href="{{ path('admin_reservation_index') }}">Reservations</a></li>
-                        {% elseif is_granted('ROLE_CLIENT') %}
-                            <li class="nav-item"><a class="nav-link" href="{{ path('client_room_index') }}">Rooms</a></li>
-                            <li class="nav-item"><a class="nav-link" href="{{ path('client_booking_my_bookings') }}">My Bookings</a></li>
-                            <li class="nav-item"><a class="nav-link" href="#">Profile</a></li>
-                        {% endif %}
-                    </ul>
-
-                    <ul class="navbar-nav ms-auto align-items-center">
-                        {% if app.user %}
-                            <li class="nav-item me-2"><a class="nav-link text-light" href="#">{{ app.user.email }}</a></li>
-                            <li class="nav-item"><a class="btn btn-outline-light btn-sm" href="{{ path('app_logout') }}">Logout</a></li>
-                        {% else %}
-                            <li class="nav-item me-2"><a class="btn btn-light btn-sm" href="{{ path('app_login') }}">Login</a></li>
-                            <li class="nav-item"><a class="btn btn-outline-light btn-sm" href="{{ path('app_register') }}">Register</a></li>
-                        {% endif %}
-                    </ul>
+                <div class="navbar__actions">
+                    {% if app.user %}
+                        <span style="color: var(--text-gray); font-size: 0.8rem;">{{ app.user.email }}</span>
+                        <a href="{{ path('app_logout') }}" class="btn btn--outline">Logout</a>
+                    {% else %}
+                        <a href="{{ path('app_login') }}" class="btn btn--outline">Login</a>
+                        <a href="{{ path('app_register') }}" class="btn btn--primary">Register</a>
+                    {% endif %}
                 </div>
             </div>
         </nav>
 
-        <div class="container">
+        <main>
             {% for label, messages in app.flashes %}
                 {% for message in messages %}
-                    <div class="alert alert-{{ label }}">{{ message }}</div>
+                    <div class="alert alert--{{ label }}">
+                        {{ message }}
+                    </div>
                 {% endfor %}
             {% endfor %}
 
             {% block body %}{% endblock %}
-        </div>
+        </main>
+
+        <footer>
+            <div class="footer__wrapper">
+                <div class="footer__content">
+                    <div class="footer__section">
+                        <h5>About LuxeStay</h5>
+                        <p>Experience world-class luxury hotel reservations. We provide seamless access to the finest accommodations globally.</p>
+                    </div>
+                    <div class="footer__section">
+                        <h5>Quick Links</h5>
+                        <a href="{{ path('app_home') }}" class="footer__link">Home</a>
+                        <a href="{{ path('client_room_index') }}" class="footer__link">Browse Rooms</a>
+                        <a href="#" class="footer__link">Contact Us</a>
+                    </div>
+                    <div class="footer__section">
+                        <h5>Legal</h5>
+                        <a href="#" class="footer__link">Help Center</a>
+                        <a href="#" class="footer__link">Privacy Policy</a>
+                        <a href="#" class="footer__link">Terms of Service</a>
+                    </div>
+                </div>
+                <div class="footer__divider">
+                    <p>&copy; {{ "now"|date("Y") }} LuxeStay. All rights reserved. Premium Accommodations Worldwide.</p>
+                </div>
+            </div>
+        </footer>
     </body>
 </html>

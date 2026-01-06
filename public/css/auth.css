@@ -1,0 +1,143 @@
+@import url('https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700&family=Plus+Jakarta+Sans:wght@400;600;700&display=swap');
+
+:root {
+    --gold: #c5a059;
+    --dark: #1a1a1a;
+    --error: #dc2626;
+}
+
+.auth-wrapper {
+    min-height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: linear-gradient(rgba(26, 26, 26, 0.8), rgba(26, 26, 26, 0.8)),
+                url('https://images.unsplash.com/photo-1566073771259-6a8506099945?auto=format&fit=crop&w=1350&q=80');
+    background-size: cover;
+    background-position: center;
+    font-family: 'Plus Jakarta Sans', sans-serif;
+    padding: 20px;
+}
+
+.auth-card {
+    background: #ffffff;
+    width: 100%;
+    max-width: 450px;
+    padding: 50px;
+    border-radius: 20px;
+    box-shadow: 0 25px 50px rgba(0,0,0,0.3);
+}
+
+.auth-header {
+    text-align: center;
+    margin-bottom: 40px;
+}
+
+.auth-header h1 {
+    font-family: 'Playfair Display', serif;
+    font-size: 32px;
+    color: var(--dark);
+    margin: 0;
+}
+
+.auth-header p {
+    color: #888;
+    font-size: 14px;
+    margin-top: 10px;
+}
+
+/* التنبيهات */
+.alert-danger {
+    background: #fff5f5;
+    color: var(--error);
+    padding: 12px;
+    border-radius: 10px;
+    font-size: 13px;
+    margin-bottom: 25px;
+    border-left: 4px solid var(--error);
+}
+
+/* مدخلات النموذج */
+.form-group {
+    margin-bottom: 20px;
+}
+
+.form-label {
+    display: block;
+    font-size: 11px;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    color: var(--gold);
+    margin-bottom: 8px;
+}
+
+.form-control {
+    width: 100%;
+    padding: 14px 18px;
+    border-radius: 10px;
+    border: 1px solid #e2e2d5;
+    background: #fdfbf7;
+    font-family: inherit;
+    transition: 0.3s;
+}
+
+.form-control:focus {
+    outline: none;
+    border-color: var(--gold);
+    background: white;
+    box-shadow: 0 5px 15px rgba(197, 160, 89, 0.1);
+}
+
+/* الأزرار */
+.btn-login {
+    width: 100%;
+    padding: 16px;
+    background: var(--dark);
+    color: white;
+    border: none;
+    border-radius: 10px;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    cursor: pointer;
+    transition: 0.4s;
+    margin-top: 10px;
+}
+
+.btn-login:hover {
+    background: var(--gold);
+    transform: translateY(-2px);
+}
+
+.auth-footer {
+    text-align: center;
+    margin-top: 30px;
+    font-size: 14px;
+    color: #666;
+}
+
+.auth-footer a {
+    color: var(--gold);
+    text-decoration: none;
+    font-weight: 600;
+}
+
+.auth-footer a:hover {
+    text-decoration: underline;
+}
+.form-row {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 15px;
+}
+
+@media (max-width: 600px) {
+    .form-row {
+        grid-template-columns: 1fr;
+    }
+}
+
+.registration-card {
+    max-width: 700px; /* زيادة العرض لأن الحقول أكثر */
+}

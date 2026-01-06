@@ -1,50 +1,67 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Payments{% endblock %}
+{% block title %}Payments Dashboard{% endblock %}
+
+{% block stylesheets %}
+    <link rel="stylesheet" href="{{ asset('css/payment.css') }}">
+{% endblock %}
 
 {% block body %}
-    <div class="container container-max">
-        <div class="mb-3">
-            <h1 class="h3">Payments</h1>
-            <p class="text-muted">Recent payments and their statuses.</p>
+<div class="admin-container">
+    <header class="admin-header">
+        <div>
+            <h1>Financial Transactions</h1>
+            <p style="color: #888;">Monitor guest payments and transaction histories.</p>
         </div>
+    </header>
 
-        <div class="card">
-            <div class="card-body p-0">
-                {% if payments is empty %}
-                    <div class="empty-state m-4">
-                        <div class="icon">💳</div>
-                        <p class="mb-0">No payments found.</p>
-                    </div>
-                {% else %}
-                    <table class="table table-hover mb-0">
-                        <thead>
-                            <tr>
-                                <th>ID</th>
-                                <th>Reservation</th>
-                                <th>Amount</th>
-                                <th>Method</th>
-                                <th>Status</th>
-                                <th>Date</th>
-                                <th class="text-end"></th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            {% for payment in payments %}
-                                <tr>
-                                    <td>{{ payment.id }}</td>
-                                    <td>{{ payment.reservation.id }}</td>
-                                    <td>{{ payment.amount }}</td>
-                                    <td>{{ payment.paymentMethod }}</td>
-                                    <td>{{ payment.paymentStatus }}</td>
-                                    <td>{{ payment.paymentDate ? payment.paymentDate|date('Y-m-d H:i') : '-' }}</td>
-                                    <td class="text-end"><a href="{{ path('admin_payment_show', {id: payment.id}) }}" class="btn btn-sm btn-outline-primary">View</a></td>
-                                </tr>
-                            {% endfor %}
-                        </tbody>
-                    </table>
-                {% endif %}
+    <div class="table-wrapper">
+        {% if payments is empty %}
+            <div style="text-align: center; padding: 60px;">
+                <div style="font-size: 50px; margin-bottom: 20px;">💳</div>
+                <p style="color: #888; font-size: 18px;">No payment records found in the system.</p>
             </div>
-        </div>
+        {% else %}
+            <table class="luxury-table">
+                <thead>
+                    <tr>
+                        <th>Transaction ID</th>
+                        <th>Reservation Ref</th>
+                        <th>Amount</th>
+                        <th>Payment Method</th>
+                        <th>Status</th>
+                        <th>Process Date</th>
+                        <th style="text-align: right;">Actions</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for payment in payments %}
+                        <tr>
+                            <td>#{{ payment.id }}</td>
+                            <td>
+                                <strong>Res #{{ payment.reservation.id }}</strong>
+                                <span style="display: block; font-size: 11px; color: #999;">
+                                    Guest: {{ payment.reservation.user.firstName }}
+                                </span>
+                            </td>
+                            <td class="price-tag">${{ payment.amount }}</td>
+                            <td>{{ payment.paymentMethod }}</td>
+                            <td>
+                                <span class="status-badge status-{{ payment.paymentStatus|lower }}">
+                                    {{ payment.paymentStatus }}
+                                </span>
+                            </td>
+                            <td>{{ payment.paymentDate ? payment.paymentDate|date('Y-m-d H:i') : '-' }}</td>
+                            <td style="text-align: right;">
+                                <a href="{{ path('admin_payment_show', {id: payment.id}) }}" class="btn-action" style="text-decoration: none;">
+                                    Details
+                                </a>
+                            </td>
+                        </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        {% endif %}
     </div>
+</div>
 {% endblock %}

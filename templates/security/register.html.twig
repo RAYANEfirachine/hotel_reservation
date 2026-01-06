@@ -1,21 +1,74 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Register{% endblock %}
+{% block title %}Join LuxeStay - Register{% endblock %}
+
+{% block stylesheets %}
+    <link rel="stylesheet" href="{{ asset('css/auth.css') }}">
+{% endblock %}
 
 {% block body %}
-    <h1>Register</h1>
+<div class="auth-wrapper">
+    <div class="auth-card registration-card">
+        <header class="auth-header">
+            <h1>Create Account</h1>
+            <p>Join our exclusive community for a seamless luxury experience</p>
+        </header>
 
-    {{ form_start(registrationForm) }}
-        {{ form_row(registrationForm.firstName) }}
-        {{ form_row(registrationForm.lastName) }}
-        {{ form_row(registrationForm.email) }}
-        {{ form_row(registrationForm.plainPassword) }}
-        {{ form_row(registrationForm.phone) }}
-        {{ form_row(registrationForm.birthDate) }}
-        {{ form_row(registrationForm.identityType) }}
-        {{ form_row(registrationForm.identityNumber) }}
-        <button class="btn btn-primary">Register</button>
-    {{ form_end(registrationForm) }}
+        {{ form_start(registrationForm, {'attr': {'class': 'auth-form'}}) }}
 
-    <p>Already have an account? <a href="{{ path('app_login') }}">Login</a></p>
+            <div class="form-row">
+                <div class="form-group">
+                    {{ form_label(registrationForm.firstName, 'First Name', {'label_attr': {'class': 'form-label'}}) }}
+                    {{ form_widget(registrationForm.firstName, {'attr': {'class': 'form-control', 'placeholder': 'John'}}) }}
+                    {{ form_errors(registrationForm.firstName) }}
+                </div>
+                <div class="form-group">
+                    {{ form_label(registrationForm.lastName, 'Last Name', {'label_attr': {'class': 'form-label'}}) }}
+                    {{ form_widget(registrationForm.lastName, {'attr': {'class': 'form-control', 'placeholder': 'Doe'}}) }}
+                    {{ form_errors(registrationForm.lastName) }}
+                </div>
+            </div>
+
+            <div class="form-group">
+                {{ form_label(registrationForm.email, 'Email Address', {'label_attr': {'class': 'form-label'}}) }}
+                {{ form_widget(registrationForm.email, {'attr': {'class': 'form-control', 'placeholder': 'john.doe@example.com'}}) }}
+                {{ form_errors(registrationForm.email) }}
+            </div>
+
+            <div class="form-group">
+                {{ form_label(registrationForm.plainPassword, 'Password', {'label_attr': {'class': 'form-label'}}) }}
+                {{ form_widget(registrationForm.plainPassword, {'attr': {'class': 'form-control', 'placeholder': '••••••••'}}) }}
+                {{ form_errors(registrationForm.plainPassword) }}
+            </div>
+
+            <div class="form-row">
+                <div class="form-group">
+                    {{ form_label(registrationForm.phone, 'Phone Number', {'label_attr': {'class': 'form-label'}}) }}
+                    {{ form_widget(registrationForm.phone, {'attr': {'class': 'form-control', 'placeholder': '+123...'}}) }}
+                </div>
+                <div class="form-group">
+                    {{ form_label(registrationForm.birthDate, 'Birth Date', {'label_attr': {'class': 'form-label'}}) }}
+                    {{ form_widget(registrationForm.birthDate, {'attr': {'class': 'form-control'}}) }}
+                </div>
+            </div>
+
+            <div class="form-row">
+                <div class="form-group">
+                    {{ form_label(registrationForm.identityType, 'Identity Type', {'label_attr': {'class': 'form-label'}}) }}
+                    {{ form_widget(registrationForm.identityType, {'attr': {'class': 'form-control'}}) }}
+                </div>
+                <div class="form-group">
+                    {{ form_label(registrationForm.identityNumber, 'ID Number', {'label_attr': {'class': 'form-label'}}) }}
+                    {{ form_widget(registrationForm.identityNumber, {'attr': {'class': 'form-control', 'placeholder': 'Passport or ID'}}) }}
+                </div>
+            </div>
+
+            <button class="btn-login" type="submit">Create Account</button>
+        {{ form_end(registrationForm) }}
+
+        <div class="auth-footer">
+            <p>Already have an account? <a href="{{ path('app_login') }}">Login here</a></p>
+        </div>
+    </div>
+</div>
 {% endblock %}

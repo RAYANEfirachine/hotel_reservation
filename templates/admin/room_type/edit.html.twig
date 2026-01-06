@@ -1,27 +1,42 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Edit Room Type{% endblock %}
+{% block title %}Edit Category — {{ type.type }}{% endblock %}
+
+{% block stylesheets %}
+    <link rel="stylesheet" href="{{ asset('css/room_type_config.css') }}">
+{% endblock %}
 
 {% block body %}
-    <div class="container container-max">
-        <div class="mb-3">
-            <h1 class="h3">Edit Room Type — {{ type.type }}</h1>
-            <p class="text-muted">Update details for this room type.</p>
-        </div>
+<div class="config-wrapper">
+    <div class="config-card">
+        <header class="config-header">
+            <h1>Configure Room Category</h1>
+            <p>Update pricing and capacity for the <strong>{{ type.type }}</strong> tier.</p>
+        </header>
 
-        <div class="card">
-            <div class="card-body">
-                {{ form_start(form) }}
-                    <div class="mb-3">{{ form_row(form.type) }}</div>
-                    <div class="mb-3">{{ form_row(form.capacity) }}</div>
-                    <div class="mb-3">{{ form_row(form.pricePerDay) }}</div>
+        <div class="config-body">
+            {{ form_start(form) }}
+                <div class="field-block">
+                    {{ form_label(form.type, 'Category Name') }}
+                    {{ form_widget(form.type) }}
+                </div>
 
-                    <div class="d-flex gap-2">
-                        <button class="btn btn-primary">Update</button>
-                        <a class="btn btn-outline-secondary" href="{{ path('admin_room_type_index') }}">Back</a>
-                    </div>
-                {{ form_end(form) }}
-            </div>
+                <div class="field-block">
+                    {{ form_label(form.capacity, 'Max Guests Capacity') }}
+                    {{ form_widget(form.capacity, {'attr': {'min': '1'}}) }}
+                </div>
+
+                <div class="field-block">
+                    {{ form_label(form.pricePerDay, 'Rate Per Night ($)') }}
+                    {{ form_widget(form.pricePerDay) }}
+                </div>
+
+                <div class="footer-actions">
+                    <button type="submit" class="btn-update-gold">Commit Changes</button>
+                    <a href="{{ path('admin_room_type_index') }}" class="btn-cancel-light">Cancel</a>
+                </div>
+            {{ form_end(form) }}
         </div>
     </div>
+</div>
 {% endblock %}

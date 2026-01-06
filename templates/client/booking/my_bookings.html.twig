@@ -1,50 +1,69 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}My Bookings{% endblock %}
+{% block title %}My Bookings | The Royal Sovereign{% endblock %}
+
+{% block stylesheets %}
+    <link rel="stylesheet" href="{{ asset('css/client_bookings.css') }}">
+{% endblock %}
 
 {% block body %}
-    <div class="container container-max">
-        <div class="mb-3">
-            <h1 class="h3">My Bookings</h1>
-            <p class="text-muted">Your upcoming and past reservations.</p>
-        </div>
+<div class="bookings-page">
+    <div class="bookings-container">
 
-        <div class="card">
-            <div class="card-body p-0">
-                <table class="table table-hover mb-0">
-                    <thead>
+        <header class="page-header">
+            <h1>My Bookings</h1>
+            <p>Your journey with us, past and present.</p>
+        </header>
+
+        <div class="bookings-card">
+            <table class="custom-table">
+                <thead>
+                    <tr>
+                        <th>Reservation</th>
+                        <th>Room Unit</th>
+                        <th>Check-in</th>
+                        <th>Check-out</th>
+                        <th>Status</th>
+                        <th style="text-align: right;">Options</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for r in reservations %}
                         <tr>
-                            <th>Reservation</th>
-                            <th>Room</th>
-                            <th>Check-in</th>
-                            <th>Check-out</th>
-                            <th>Status</th>
-                            <th class="text-end">Actions</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        {% for r in reservations %}
-                            <tr>
-                                <td>#{{ r.id }}</td>
-                                <td>{{ r.room.roomNumber }}</td>
-                                <td>{{ r.checkInDate|date('Y-m-d') }}</td>
-                                <td>{{ r.checkOutDate|date('Y-m-d') }}</td>
-                                <td>
-                                    <span class="badge bg-{{ r.status == 'cancelled' ? 'danger' : (r.status == 'confirmed' ? 'success' : 'secondary') }}">{{ r.status }}</span>
-                                </td>
-                                <td class="text-end">
-                                    <form method="post" action="{{ path('client_booking_cancel', {'id': r.id}) }}" onsubmit="return confirm('Cancel reservation?');">
+                            <td><span class="res-number">#{{ r.id }}</span></td>
+                            <td><span class="room-id">Unit {{ r.room.roomNumber }}</span></td>
+                            <td>{{ r.checkInDate|date('d M Y') }}</td>
+                            <td>{{ r.checkOutDate|date('d M Y') }}</td>
+                            <td>
+                                {# تحسين عرض الـ Badge بناءً على الحالة #}
+                                <span class="status-badge status-{{ r.status|lower }}">
+                                    {{ r.status }}
+                                </span>
+                            </td>
+                            <td style="text-align: right;">
+                                {% if r.status != 'cancelled' %}
+                                    <form method="post" action="{{ path('client_booking_cancel', {'id': r.id}) }}" onsubmit="return confirm('Are you sure you want to cancel this reservation?');">
                                         <input type="hidden" name="_token" value="{{ csrf_token('cancel' ~ r.id) }}">
-                                        <button class="btn btn-sm btn-outline-danger">Cancel</button>
+                                        <button class="btn-cancel-action">Cancel Stay</button>
                                     </form>
-                                </td>
-                            </tr>
-                        {% else %}
-                            <tr><td colspan="6"><div class="empty-state">You have no bookings yet.</div></td></tr>
-                        {% endfor %}
-                    </tbody>
-                </table>
-            </div>
+                                {% else %}
+                                    <span style="font-size: 11px; color: #ccc; font-style: italic;">No actions available</span>
+                                {% endif %}
+                            </td>
+                        </tr>
+                    {% else %}
+                        <tr>
+                            <td colspan="6">
+                                <div class="empty-state">
+                                    <p>You haven't made any reservations yet.</p>
+                                    <a href="/" style="color: var(--gold); text-decoration: none; font-weight: 600;">Start exploring our rooms</a>
+                                </div>
+                            </td>
+                        </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
         </div>
     </div>
+</div>
 {% endblock %}
