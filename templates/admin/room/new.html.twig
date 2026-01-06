@@ -14,11 +14,25 @@
             <p>Enter the details to expand your hotel's inventory.</p>
         </header>
 
+
         {{ form_start(form) }}
             <div class="input-section">
                 {{ form_label(form.roomNumber, 'Designated Room Number') }}
                 {{ form_widget(form.roomNumber, {'attr': {'placeholder': 'e.g. 101, 204...'}}) }}
                 {{ form_errors(form.roomNumber) }}
+
+        <div class="card">
+            <div class="card-body">
+                {{ form_start(form) }}
+                    {{ form_errors(form) }}
+                    <div class="mb-3">{{ form_row(form.roomNumber) }}</div>
+                    <div class="mb-3">{{ form_row(form.roomType) }}</div>
+                    <div class="d-flex gap-2">
+                        <button class="btn btn-primary">Save</button>
+                        <a class="btn btn-outline-secondary" href="{{ path('admin_room_index') }}">Back</a>
+                    </div>
+                {{ form_end(form) }}
+
             </div>
 
             <div class="input-section">
