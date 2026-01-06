@@ -9,6 +9,7 @@ use Symfony\Component\Form\Extension\Core\Type\EmailType;
 use Symfony\Component\Form\Extension\Core\Type\PasswordType;
 use Symfony\Component\Form\Extension\Core\Type\DateType;
 use Symfony\Component\OptionsResolver\OptionsResolver;
+use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use App\Entity\User;
 
 class RegistrationFormType extends AbstractType
@@ -25,7 +26,16 @@ class RegistrationFormType extends AbstractType
                 'widget' => 'single_text',
                 'required' => false,
             ])
-            ->add('identityType', TextType::class, ['required' => false])
+            ->add('identityType', ChoiceType::class, [
+                    'choices'  => [
+                        'Identity Card (CIN)' => 'cin',
+                        'Passport'            => 'passport',
+                    ],
+                    'expanded' => false, // false = dropdown select, true = radio buttons
+                    'multiple' => false,
+                    'placeholder' => 'Select here',
+                    'attr' => ['class' => 'form-select'], // Bootstrap style
+                ])
             ->add('identityNumber', TextType::class, ['required' => false])
         ;
     }
