@@ -46,7 +46,7 @@
     margin-top: 10px;
 }
 
-/* التنبيهات */
+
 .alert-danger {
     background: #fff5f5;
     color: var(--error);
@@ -139,5 +139,5 @@
 }
 
 .registration-card {
-    max-width: 700px; /* زيادة العرض لأن الحقول أكثر */
+    max-width: 700px;
 }

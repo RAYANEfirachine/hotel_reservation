@@ -5,6 +5,26 @@
 {% block stylesheets %}
     {# تأكد من إنشاء ملف CSS بهذا الاسم في public/css/booking_page.css #}
     <link rel="stylesheet" href="{{ asset('css/booking_page.css') }}">
+    <style>
+        /* إضافة تنسيقات سريعة لزر الدفع الجديد */
+        .btn--payment {
+            background-color: var(--dark-bg, #1a1a1a);
+            color: #fff;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+            transition: all 0.3s ease;
+        }
+        .btn--payment:hover {
+            background-color: var(--primary-gold, #c5a059);
+            transform: translateY(-2px);
+        }
+        .payment-icons {
+            font-size: 1.2rem;
+            margin-left: 8px;
+        }
+    </style>
 {% endblock %}
 
 {% block body %}
@@ -68,13 +88,18 @@
                             </div>
                         </div>
 
-                        {# أزرار التحكم #}
-                        <div class="form__actions">
-                            <button type="submit" class="btn btn--primary btn--lg">
-                                Confirm & Complete Booking
+                        {# أزرار التحكم - تم إضافة زر الدفع هنا #}
+                        <div class="form__actions" style="margin-top: 30px; display: flex; flex-direction: column; gap: 15px;">
+
+                            {# زر التأكيد والذهاب للدفع #}
+                            <button type="submit" class="btn btn--primary btn--lg btn--payment">
+                                <span>Confirme </span>
+
                             </button>
-                            <a href="{{ path('client_room_index') }}" class="btn btn--outline btn--lg">
-                                Cancel
+
+                            {# زر العودة #}
+                            <a href="{{ path('client_room_index') }}" class="btn btn--outline btn--lg" style="text-align: center;">
+                                Cancel & Back to Rooms
                             </a>
                         </div>
 
@@ -83,9 +108,10 @@
 
                 {# تذييل البطاقة لإضافة لمسة أمان #}
                 <div class="card__footer" style="padding: 20px; background: #fdfbf7; text-align: center; border-top: 1px solid #f0eee9;">
-                    <p style="font-size: 12px; color: #999; margin: 0;">
-                        <i class="fas fa-lock"></i> SSL Secured & Encrypted Booking System
-                    </p>
+                    <div style="display: flex; justify-content: center; align-items: center; gap: 20px; opacity: 0.6;">
+                        <span style="font-size: 12px;"><i class="fas fa-lock"></i> SSL Secure</span>
+                        <span style="font-size: 12px;">💳 Visa / Mastercard</span>
+                    </div>
                 </div>
             </div>
         </div>

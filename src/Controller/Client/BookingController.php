@@ -18,7 +18,7 @@ class BookingController extends AbstractController
     #[Route('/new', name: 'client_booking_new')]
     public function new(Request $request, EntityManagerInterface $em): Response
     {
-        $this->denyAccessUnlessGranted('ROLE_CLIENT');
+        $this->denyAccessUnlessGranted('ROLE_USER');
 
         $reservation = new Reservation();
         $form = $this->createForm(ReservationFormType::class, $reservation);
@@ -50,6 +50,28 @@ class BookingController extends AbstractController
                     }
                     $reservation->setTotalPrice(number_format($total, 2, '.', ''));
 
+                    // Check for overlapping reservations for the same room (prevent overbooking)
+                    $overlapCount = $em->getRepository(Reservation::class)
+                        ->countOverlappingReservations(
+                            $reservation->getRoom(),
+                            $reservation->getCheckInDate(),
+                            $reservation->getCheckOutDate()
+                        );
+
+                    if ($overlapCount > 0) {
+                        $this->addFlash('error', 'This room is already booked for the selected dates.');
+                        // Temporary debug info: show overlap count and selection (remove in production)
+                        $roomId = $reservation->getRoom() ? $reservation->getRoom()->getId() : 'n/a';
+                        $checkIn = $reservation->getCheckInDate() ? $reservation->getCheckInDate()->format('Y-m-d') : '-';
+                        $checkOut = $reservation->getCheckOutDate() ? $reservation->getCheckOutDate()->format('Y-m-d') : '-';
+                        $this->addFlash('info', sprintf('Overlap debug: count=%d, room=%s, checkIn=%s, checkOut=%s', $overlapCount, $roomId, $checkIn, $checkOut));
+
+                        return $this->render('client/booking/new.html.twig', [
+                            'form' => $form->createView(),
+                            'room_is_full' => true,
+                        ]);
+                    }
+
                     $reservation->setUser($user);
                     $em->persist($reservation);
                     $em->flush();
@@ -61,20 +83,20 @@ class BookingController extends AbstractController
             }
         }
 
-        return $this->render('client/booking/new.html.twig', ['form' => $form->createView()]);
+        return $this->render('client/booking/new.html.twig', ['form' => $form->createView(), 'room_is_full' => false]);
     }
 
     #[Route('/success', name: 'client_booking_success')]
     public function success(): Response
     {
-        $this->denyAccessUnlessGranted('ROLE_CLIENT');
+        $this->denyAccessUnlessGranted('ROLE_USER');
         return $this->render('client/booking/success.html.twig');
     }
 
     #[Route('/{id}/cancel', name: 'client_booking_cancel', methods: ['POST'])]
     public function cancel(int $id, EntityManagerInterface $em): Response
     {
-        $this->denyAccessUnlessGranted('ROLE_CLIENT');
+        $this->denyAccessUnlessGranted('ROLE_USER');
 
         $reservation = $em->getRepository(\App\Entity\Reservation::class)->find($id);
         if (!$reservation) {
@@ -96,7 +118,7 @@ class BookingController extends AbstractController
     #[Route('/my', name: 'client_booking_my_bookings')]
     public function myBookings(EntityManagerInterface $em): Response
     {
-        $this->denyAccessUnlessGranted('ROLE_CLIENT');
+        $this->denyAccessUnlessGranted('ROLE_USER');
 
         $user = $this->getUser();
         if (!$user instanceof User) {

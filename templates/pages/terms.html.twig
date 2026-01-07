@@ -1,0 +1,24 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Terms of Service - LuxeStay{% endblock %}
+
+{% block stylesheets %}
+    <link rel="stylesheet" href="{{ asset('css/legal.css') }}">
+{% endblock %}
+
+{% block body %}
+<div class="legal-page">
+    <div class="legal-container">
+        <h1>Terms of Service</h1>
+
+        <h2>1. Booking Policy</h2>
+        <p>By making a reservation on LuxeStay, you agree to abide by the specific hotel's rules and check-in/out times.</p>
+
+        <h2>2. Cancellation & Refunds</h2>
+        <p>Refunds are subject to the specific room type policy. Standard rooms typically allow free cancellation 48 hours prior to arrival.</p>
+
+        <h2>3. User Responsibilities</h2>
+        <p>Users must provide accurate identity information. LuxeStay reserves the right to cancel bookings made with fraudulent data.</p>
+    </div>
+</div>
+{% endblock %}

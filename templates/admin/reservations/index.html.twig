@@ -1,0 +1,139 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}My Reservations - LuxeStay{% endblock %}
+
+{% block stylesheets %}
+    <style>
+        .reservations-container {
+            max-width: 1200px;
+            margin: 40px auto;
+            padding: 0 20px;
+        }
+
+        .section-header {
+            margin-bottom: 30px;
+            border-bottom: 2px solid #f0eee9;
+            padding-bottom: 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .section-header h1 {
+            font-family: 'Playfair Display', serif;
+            font-size: 2.5rem;
+            color: var(--dark-bg);
+            margin: 0;
+        }
+
+        /* تنسيق الجدول الاحترافي */
+        .table-wrapper {
+            background: white;
+            border-radius: 15px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.05);
+            overflow: hidden;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            text-align: left;
+        }
+
+        thead {
+            background-color: #f8f9fa;
+            border-bottom: 1px solid #eee;
+        }
+
+        th {
+            padding: 20px;
+            font-weight: 700;
+            text-transform: uppercase;
+            font-size: 0.75rem;
+            letter-spacing: 1px;
+            color: var(--text-gray);
+        }
+
+        td {
+            padding: 20px;
+            border-bottom: 1px solid #f8f9fa;
+            vertical-align: middle;
+            font-size: 0.9rem;
+        }
+
+        /* تنسيق حالات الحجز (Status Badges) */
+        .badge {
+            padding: 6px 12px;
+            border-radius: 50px;
+            font-size: 0.75rem;
+            font-weight: 700;
+            text-transform: uppercase;
+        }
+        .badge--pending { background: #fff8e1; color: #f57c00; }
+        .badge--confirmed { background: #e8f5e9; color: #2e7d32; }
+
+        .room-info { display: flex; flex-direction: column; }
+        .room-number { font-weight: 700; color: var(--dark-bg); }
+        .total-price { font-weight: 700; color: var(--primary-gold); }
+
+        .empty-state {
+            text-align: center;
+            padding: 80px 20px;
+            color: var(--text-gray);
+        }
+    </style>
+{% endblock %}
+
+{% block body %}
+<div class="reservations-container">
+    <div class="section-header">
+        <h1> Reservations</h1>
+    </div>
+
+    <div class="table-wrapper">
+        <table>
+            <thead>
+                <tr>
+                    <th>ID</th>
+                    <th>Room Details</th>
+                    <th>Check-in</th>
+                    <th>Check-out</th>
+                    <th>Total Price</th>
+                    <th>Status</th>
+                    <th>Actions</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for reservation in reservations %}
+                    <tr>
+                        <td>#{{ reservation.id }}</td>
+                        <td class="room-info">
+                            <span class="room-number">Room {{ reservation.room.roomNumber }}</span>
+                            <small>{{ reservation.room.roomType.type }}</small>
+                        </td>
+                        <td>{{ reservation.checkInDate|date('d M, Y') }}</td>
+                        <td>{{ reservation.checkOutDate|date('d M, Y') }}</td>
+                        <td class="total-price">${{ reservation.totalPrice }}</td>
+                        <td>
+                            <span class="badge badge--{{ reservation.status|lower }}">
+                                {{ reservation.status }}
+                            </span>
+                        </td>
+                        <td>
+                            <a href="#" class="btn btn--outline" style="padding: 5px 10px; font-size: 12px;">Details</a>
+                        </td>
+                    </tr>
+                {% else %}
+                    <tr>
+                        <td colspan="7" class="empty-state">
+                            <div style="font-size: 40px; margin-bottom: 10px;">📅</div>
+                            <p>No reservations found. Ready for a luxury getaway?</p>
+                            <a href="{{ path('client_room_index') }}" class="btn btn--primary">Browse Rooms</a>
+                        </td>
+                    </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+</div>
+{% endblock %}

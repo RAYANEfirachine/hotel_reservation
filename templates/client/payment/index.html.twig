@@ -1,0 +1,171 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Secure Payment | LuxeStay Boutique{% endblock %}
+
+{% block stylesheets %}
+    <style>
+        .payment-wrapper {
+            background-color: #fdfdfb;
+            min-height: 80vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 40px 20px;
+        }
+
+        .checkout-container {
+            background: white;
+            width: 100%;
+            max-width: 480px;
+            padding: 40px;
+            border-radius: 24px;
+            box-shadow: 0 20px 60px rgba(0,0,0,0.05);
+        }
+
+        .checkout-header {
+            text-align: center;
+            margin-bottom: 30px;
+        }
+
+        .checkout-header h1 {
+            font-family: 'Playfair Display', serif;
+            font-size: 28px;
+            color: var(--dark-bg);
+            margin-bottom: 8px;
+        }
+
+        /* تصميم البطاقة البصرية المتحركة */
+        .visual-card {
+            background: linear-gradient(135deg, #1a1a1a 0%, #3d3d3d 100%);
+            color: white;
+            padding: 25px;
+            border-radius: 16px;
+            margin-bottom: 30px;
+            position: relative;
+            box-shadow: 0 10px 25px rgba(0,0,0,0.2);
+            transition: transform 0.3s ease;
+        }
+
+        .visual-card:hover { transform: translateY(-5px); }
+
+        .card-chip {
+            width: 45px;
+            height: 35px;
+            background: linear-gradient(135deg, #f1c40f 0%, #d4af37 100%);
+            border-radius: 6px;
+            margin-bottom: 25px;
+        }
+
+        .card-number-placeholder {
+            font-family: 'Courier New', monospace;
+            font-size: 20px;
+            letter-spacing: 3px;
+            margin-bottom: 25px;
+            display: block;
+        }
+
+        .card-meta {
+            display: flex;
+            justify-content: space-between;
+            font-size: 11px;
+            text-transform: uppercase;
+        }
+
+        /* المدخلات */
+        .form-group { margin-bottom: 20px; }
+        .form-group label { display: block; font-size: 13px; font-weight: 600; margin-bottom: 8px; color: #555; }
+        .form-control {
+            width: 100%;
+            padding: 14px;
+            border: 1px solid #e1e1e1;
+            border-radius: 10px;
+            font-family: inherit;
+        }
+
+        .btn-confirm {
+            width: 100%;
+            background: var(--dark-bg);
+            color: white;
+            padding: 16px;
+            border: none;
+            border-radius: 12px;
+            font-weight: 700;
+            cursor: pointer;
+            transition: background 0.3s;
+        }
+
+        .btn-confirm:hover { background: var(--primary-gold); }
+    </style>
+{% endblock %}
+
+{% block body %}
+<div class="payment-wrapper">
+    <div class="checkout-container">
+        <header class="checkout-header">
+            <h1>Secure Checkout</h1>
+            <p>Enter your details to confirm your stay.</p>
+        </header>
+
+        <div class="visual-card">
+            <div class="card-chip"></div>
+            <span id="display-number" class="card-number-placeholder">**** **** **** ****</span>
+            <div class="card-meta">
+                <div>
+                    <span>Card Holder</span>
+                    <div id="display-name" style="font-size: 14px; margin-top: 5px;">{{ app.user.userIdentifier|upper }}</div>
+                </div>
+                <div style="text-align: right;">
+                    <span>Expires</span>
+                    <div id="display-expiry" style="font-size: 14px; margin-top: 5px;">MM / YY</div>
+                </div>
+            </div>
+        </div>
+
+        <form action="{{ path('app_payment_success') }}" method="POST">
+            <div class="form-group">
+                <label>Cardholder Name</label>
+                <input type="text" id="input-name" class="form-control" placeholder="Full Name" required>
+            </div>
+
+            <div class="form-group">
+                <label>Card Number</label>
+                <input type="text" id="input-number" class="form-control" placeholder="0000 0000 0000 0000" maxlength="16" required>
+            </div>
+
+            <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 15px;">
+                <div class="form-group">
+                    <label>Expiry Date</label>
+                    <input type="text" id="input-expiry" class="form-control" placeholder="MM/YY" maxlength="5" required>
+                </div>
+                <div class="form-group">
+                    <label>CVV</label>
+                    <input type="password" class="form-control" placeholder="***" maxlength="3" required>
+                </div>
+            </div>
+
+            <button type="submit" class="btn-confirm">Pay & Book Now</button>
+        </form>
+    </div>
+</div>
+
+<script>
+    // كود بسيط لربط المدخلات بالعرض البصري
+    const nameInput = document.getElementById('input-name');
+    const numInput = document.getElementById('input-number');
+    const expiryInput = document.getElementById('input-expiry');
+
+    nameInput.addEventListener('input', (e) => {
+        document.getElementById('display-name').innerText = e.target.value.toUpperCase() || '{{ app.user.userIdentifier|upper }}';
+    });
+
+    numInput.addEventListener('input', (e) => {
+        let val = e.target.value.replace(/\s+/g, '').replace(/[^0-9]/gi, '');
+        let formatted = val.match(/.{1,4}/g)?.join(' ') || '**** **** **** ****';
+        document.getElementById('display-number').innerText = formatted;
+    });
+
+    expiryInput.addEventListener('input', (e) => {
+        document.getElementById('display-expiry').innerText = e.target.value || 'MM / YY';
+    });
+</script>
+{% endblock %}

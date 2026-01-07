@@ -1,6 +1,6 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Edit Room #{{ room.numRoom }}{% endblock %}
+{% block title %}Edit Room #{{ room.roomNumber }}{% endblock %}
 
 {% block stylesheets %}
     <link rel="stylesheet" href="{{ asset('css/edit_room.css') }}">
@@ -11,13 +11,13 @@
     <div class="form-container">
         <header class="form-header">
             <h1>Refine Room Details</h1>
-            <p>Modify the attributes of Room #{{ room.numRoom }} to maintain hotel excellence.</p>
+            <p>Modify the attributes of Room #{{ room.roomNumber }} to maintain hotel excellence.</p>
         </header>
 
         {{ form_start(form) }}
             <div class="form-group-custom">
-                {{ form_label(form.numRoom, 'Room Number') }}
-                {{ form_widget(form.numRoom) }}
+                {{ form_label(form.roomNumber, 'Room Number') }}
+                {{ form_widget(form.roomNumber) }}
             </div>
 
             <div class="form-group-custom">

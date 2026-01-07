@@ -4,10 +4,10 @@ namespace App\Form;
 
 use App\Entity\Reservation;
 use App\Entity\Room;
-use Symfony\Component\Form\AbstractType;
-use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
+use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\DateType;
+use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
 class ReservationFormType extends AbstractType
@@ -17,15 +17,26 @@ class ReservationFormType extends AbstractType
         $builder
             ->add('room', EntityType::class, [
                 'class' => Room::class,
-                'choice_label' => 'roomNumber',
+                'choice_label' => 'roomNumber', // أو أي حقل يعبر عن الغرفة
+                'attr' => ['class' => 'form__control']
             ])
-            ->add('checkInDate', DateType::class, ['widget' => 'single_text'])
-            ->add('checkOutDate', DateType::class, ['widget' => 'single_text'])
+            ->add('checkInDate', DateType::class, [
+                'widget' => 'single_text',
+                'attr' => ['class' => 'form__control'],
+                'required' => true // هذا يضيف التحقق في الـ HTML
+            ])
+            ->add('checkOutDate', DateType::class, [
+                'widget' => 'single_text',
+                'attr' => ['class' => 'form__control'],
+                'required' => true
+            ])
         ;
     }
 
     public function configureOptions(OptionsResolver $resolver): void
     {
-        $resolver->setDefaults(['data_class' => Reservation::class]);
+        $resolver->setDefaults([
+            'data_class' => Reservation::class,
+        ]);
     }
 }

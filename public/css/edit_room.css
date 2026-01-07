@@ -41,7 +41,7 @@
     font-size: 14px;
 }
 
-/* تنسيق حقول Symfony Form */
+
 .form-group-custom {
     margin-bottom: 25px;
 }
@@ -77,7 +77,7 @@
     box-shadow: 0 0 15px rgba(197, 160, 89, 0.1);
 }
 
-/* تنسيق الأزرار */
+
 .action-area {
     margin-top: 40px;
     display: flex;

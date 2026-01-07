@@ -2,21 +2,31 @@
 
 namespace App\Controller\Admin;
 
-use Doctrine\ORM\EntityManagerInterface;
-use Symfony\Component\Security\Http\Attribute\IsGranted;
+use App\Entity\Reservation;
+use App\Repository\ReservationRepository;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 
-#[Route('/admin/reservation')]
-#[IsGranted('ROLE_ADMIN')]
+#[Route('/admin/reservations')]
 class ReservationController extends AbstractController
 {
     #[Route('', name: 'admin_reservation_index')]
-    #[Route('/', name: 'admin_reservation_index_slash')]
-    public function index(EntityManagerInterface $em): Response
+    #[Route('', name: 'app_reservation_index')]
+    public function index(ReservationRepository $reservationRepository): Response
     {
-        // placeholder - list reservations when available
-        return $this->render('admin/reservation/index.html.twig');
+        $reservations = $reservationRepository->findAll();
+
+        return $this->render('admin/reservations/index.html.twig', [
+            'reservations' => $reservations,
+        ]);
+    }
+
+    #[Route('/{id}', name: 'admin_reservation_show')]
+    public function show(Reservation $reservation): Response
+    {
+        return $this->render('admin/reservations/show.html.twig', [
+            'reservation' => $reservation,
+        ]);
     }
 }

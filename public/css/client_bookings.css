@@ -37,7 +37,6 @@
     letter-spacing: 1px;
 }
 
-/* بطاقة الجدول */
 .bookings-card {
     background: white;
     border-radius: 20px;
@@ -71,7 +70,6 @@
 
 .custom-table tr:last-child td { border-bottom: none; }
 
-/* تنسيق البيانات */
 .res-number { font-weight: 700; color: var(--gold); }
 .room-id { font-weight: 600; }
 
@@ -87,7 +85,6 @@
 .status-cancelled { background: #fee2e2; color: #dc2626; }
 .status-pending { background: #fdfbf7; color: #b7791f; border: 1px solid var(--border); }
 
-/* أزرار الإلغاء */
 .btn-cancel-action {
     background: transparent;
     border: 1px solid #eee;

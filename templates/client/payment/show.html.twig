@@ -1,20 +1,13 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Pay Reservation #{{ reservation.id }}{% endblock %}
+{% block title %}Pay Reservation {{ reservation.id }}{% endblock %}
 
 {% block body %}
-    <div class="container container-max d-flex justify-content-center">
-        <div class="card w-100" style="max-width:720px">
-            <div class="card-body text-center">
-                <h1 class="h4">Pay Reservation #{{ reservation.id }}</h1>
-                <p class="text-muted">Room: {{ reservation.room.roomNumber }} — {{ reservation.room.roomType.type }}</p>
-                <p class="h5">Amount: {{ reservation.totalPrice }}</p>
+<h1>Pay for Reservation #{{ reservation.id }}</h1>
+<p>Room: {{ reservation.room.roomNumber }} ({{ reservation.room.roomType.type }})</p>
+<p>Check-in: {{ reservation.checkInDate ? reservation.checkInDate|date('Y-m-d') : '' }}</p>
+<p>Check-out: {{ reservation.checkOutDate ? reservation.checkOutDate|date('Y-m-d') : '' }}</p>
+<p>Total: {{ reservation.totalPrice }}</p>
 
-                <form method="post">
-                    <button class="btn btn-primary">Pay now</button>
-                    <a href="{{ path('client_booking_my_bookings') }}" class="btn btn-link">Back to bookings</a>
-                </form>
-            </div>
-        </div>
-    </div>
+<a href="{{ path('app_payment', {'room': reservation.room.id}) }}" class="btn btn--primary">Proceed to Payment</a>
 {% endblock %}

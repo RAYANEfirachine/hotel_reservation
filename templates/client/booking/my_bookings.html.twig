@@ -1,111 +1,195 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}My Bookings | The Royal Sovereign{% endblock %}
+{% block title %}My Bookings - LuxeStay{% endblock %}
 
 {% block stylesheets %}
-    <link rel="stylesheet" href="{{ asset('css/client_bookings.css') }}">
+<style>
+    .bookings-hero {
+        background: linear-gradient(rgba(0,0,0,0.6), rgba(0,0,0,0.6)), url('https://images.unsplash.com/photo-1542314831-068cd1dbfeeb?auto=format&fit=crop&w=1920&q=80');
+        background-size: cover;
+        background-position: center;
+        color: white;
+        padding: 60px 0;
+        text-align: center;
+        margin-bottom: 40px;
+    }
+
+    .bookings-hero h1 {
+        font-family: 'Playfair Display', serif;
+        font-size: 3rem;
+        margin: 0;
+    }
+
+    .container {
+        max-width: 1100px;
+        margin: 0 auto;
+        padding: 0 20px;
+    }
+
+    .booking-card {
+        background: white;
+        border-radius: 15px;
+        box-shadow: 0 10px 30px rgba(0,0,0,0.05);
+        margin-bottom: 25px;
+        display: flex;
+        overflow: hidden;
+        border: 1px solid #eee;
+        transition: transform 0.3s ease;
+    }
+
+    .booking-card:hover {
+        transform: translateY(-5px);
+    }
+
+    .status-sidebar {
+        width: 10px;
+    }
+
+    /* ألوان الحالة */
+    .status--pending { background-color: #f1c40f; }
+    .status--confirmed { background-color: #2ecc71; }
+    .status--cancelled { background-color: #e74c3c; }
+
+    .booking-content {
+        display: grid;
+        grid-template-columns: 1fr 2fr 1.5fr 1fr;
+        align-items: center;
+        padding: 25px;
+        width: 100%;
+    }
+
+    .res-id {
+        font-weight: 700;
+        color: var(--primary-gold);
+        font-size: 1.2rem;
+    }
+
+    .room-info h3 {
+        margin: 0;
+        font-size: 1.1rem;
+        color: var(--dark-bg);
+    }
+
+    .room-info p {
+        margin: 5px 0 0;
+        color: var(--text-gray);
+        font-size: 0.9rem;
+    }
+
+    .dates-info {
+        display: flex;
+        gap: 20px;
+        color: var(--text-gray);
+    }
+
+    .date-box {
+        text-align: center;
+    }
+
+    .date-label {
+        font-size: 0.7rem;
+        text-transform: uppercase;
+        display: block;
+        margin-bottom: 5px;
+        letter-spacing: 1px;
+    }
+
+    .date-value {
+        font-weight: 600;
+        color: var(--dark-bg);
+    }
+
+    .booking-actions {
+        display: flex;
+        flex-direction: column;
+        gap: 10px;
+    }
+
+    .badge-status {
+        padding: 5px 12px;
+        border-radius: 20px;
+        font-size: 0.75rem;
+        font-weight: 700;
+        text-transform: uppercase;
+        text-align: center;
+        display: inline-block;
+    }
+
+    .badge-pending { background: #fff9e6; color: #d4a017; }
+
+    .btn-pay {
+        background: var(--dark-bg);
+        color: white;
+        text-decoration: none;
+        padding: 8px 15px;
+        border-radius: 5px;
+        font-size: 0.85rem;
+        text-align: center;
+        transition: 0.3s;
+    }
+
+    .btn-pay:hover { background: var(--primary-gold); }
+
+    .empty-state {
+        text-align: center;
+        padding: 100px 0;
+    }
+</style>
 {% endblock %}
 
 {% block body %}
-<div class="bookings-page">
-    <div class="bookings-container">
-
-        <header class="page-header">
-            <h1>My Bookings</h1>
-            <p>Your journey with us, past and present.</p>
-        </header>
-
-        <div class="bookings-card">
-            <table class="custom-table">
-                <thead>
-                    <tr>
-                        <th>Reservation</th>
-                        <th>Room Unit</th>
-                        <th>Check-in</th>
-                        <th>Check-out</th>
-                        <th>Status</th>
-                        <th style="text-align: right;">Options</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    {% for r in reservations %}
-                        <tr>
-
-                            <td><span class="res-number">#{{ r.id }}</span></td>
-                            <td><span class="room-id">Unit {{ r.room.roomNumber }}</span></td>
-                            <td>{{ r.checkInDate|date('d M Y') }}</td>
-                            <td>{{ r.checkOutDate|date('d M Y') }}</td>
-                            <td>
-                                {# تحسين عرض الـ Badge بناءً على الحالة #}
-                                <span class="status-badge status-{{ r.status|lower }}">
-                                    {{ r.status }}
-                                </span>
-                            </td>
-                            <td style="text-align: right;">
-                                {% if r.status != 'cancelled' %}
-                                    <form method="post" action="{{ path('client_booking_cancel', {'id': r.id}) }}" onsubmit="return confirm('Are you sure you want to cancel this reservation?');">
-                                        <input type="hidden" name="_token" value="{{ csrf_token('cancel' ~ r.id) }}">
-                                        <button class="btn-cancel-action">Cancel Stay</button>
-                                    </form>
-                                {% else %}
-                                    <span style="font-size: 11px; color: #ccc; font-style: italic;">No actions available</span>
-                                {% endif %}
-                            </td>
-                        </tr>
-                    {% else %}
-                        <tr>
-                            <td colspan="6">
-                                <div class="empty-state">
-                                    <p>You haven't made any reservations yet.</p>
-                                    <a href="/" style="color: var(--gold); text-decoration: none; font-weight: 600;">Start exploring our rooms</a>
-                                </div>
-                            </td>
-                        </tr>
-                    {% endfor %}
-                </tbody>
-            </table>
-
-                            <th>Reservation</th>
-                            <th>Room</th>
-                            <th>Check-in</th>
-                            <th>Check-out</th>
-                            <th>Status</th>
-                            <th class="text-end">Actions</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        {% for r in reservations %}
-                            <tr>
-                                <td>#{{ r.id }}</td>
-                                <td>{{ r.room.roomNumber }}</td>
-                                <td>{{ r.checkInDate|date('Y-m-d') }}</td>
-                                <td>{{ r.checkOutDate|date('Y-m-d') }}</td>
-                                <td>
-                                    <span class="badge bg-{{ r.status == 'cancelled' ? 'danger' : (r.status == 'confirmed' ? 'success' : 'secondary') }}">{{ r.status }}</span>
-                                </td>
-                                <td class="text-end">
-                                    <div class="d-flex justify-content-end gap-2">
-                                        {% if r.status != 'confirmed' %}
-                                            <a href="{{ path('client_payment_show', {'id': r.id}) }}" class="btn btn-sm btn-primary">Pay now</a>
-                                        {% else %}
-                                            <span class="badge bg-success">Paid</span>
-                                        {% endif %}
-
-                                        <form method="post" action="{{ path('client_booking_cancel', {'id': r.id}) }}" onsubmit="return confirm('Cancel reservation?');">
-                                            <input type="hidden" name="_token" value="{{ csrf_token('cancel' ~ r.id) }}">
-                                            <button class="btn btn-sm btn-outline-danger">Cancel</button>
-                                        </form>
-                                    </div>
-                                </td>
-                            </tr>
-                        {% else %}
-                            <tr><td colspan="6"><div class="empty-state">You have no bookings yet.</div></td></tr>
-                        {% endfor %}
-                    </tbody>
-                </table>
-            </div>
-
-        </div>
+<div class="bookings-hero">
+    <div class="container">
+        <h1>My Bookings</h1>
+        <p>Your luxury journey with us, past and present.</p>
     </div>
+</div>
+
+<div class="container">
+    {% for reservation in reservations %}
+        <div class="booking-card">
+            {# شريط الحالة الجانبي #}
+            <div class="status-sidebar status--{{ reservation.status|lower }}"></div>
+
+            <div class="booking-content">
+                <div class="res-id">
+                    #{{ reservation.id }}
+                </div>
+
+                <div class="room-info">
+                    <h3>Room {{ reservation.room.roomNumber }}</h3>
+                    <p>{{ reservation.room.roomType.type }}</p>
+                </div>
+
+                <div class="dates-info">
+                    <div class="date-box">
+                        <span class="date-label">Check-in</span>
+                        <span class="date-value">{{ reservation.checkInDate|date('d M Y') }}</span>
+                    </div>
+                    <div class="date-box">
+                        <span class="date-label">Check-out</span>
+                        <span class="date-value">{{ reservation.checkOutDate|date('d M Y') }}</span>
+                    </div>
+                </div>
+
+                <div class="booking-actions">
+                    <span class="badge-status badge-{{ reservation.status|lower }}">
+                        {{ reservation.status }}
+                    </span>
+
+                    {% if reservation.status|lower == 'pending' %}
+                        <a href="{{ path('app_payment', {'room': reservation.room.id}) }}" class="btn-pay">Pay Now</a>
+                    {% endif %}
+                </div>
+            </div>
+        </div>
+    {% else %}
+        <div class="empty-state">
+            <div style="font-size: 4rem; margin-bottom: 20px;">🛎️</div>
+            <h3>No bookings found</h3>
+            <p>Ready to experience LuxeStay?</p>
+            <a href="{{ path('client_room_index') }}" class="btn btn--primary" style="margin-top: 20px;">Browse Our Rooms</a>
+        </div>
+    {% endfor %}
 </div>
 {% endblock %}

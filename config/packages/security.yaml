@@ -31,8 +31,8 @@ security:
     # Note: Only the *first* matching rule is applied
     access_control:
         - { path: ^/admin, roles: ROLE_ADMIN }
-        - { path: ^/booking, roles: ROLE_CLIENT }
-        - { path: ^/client, roles: ROLE_CLIENT }
+        - { path: ^/booking, roles: ROLE_USER }
+        - { path: ^/client, roles: ROLE_USER }
 
 when@test:
     security:

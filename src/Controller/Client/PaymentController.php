@@ -2,55 +2,45 @@
 
 namespace App\Controller\Client;
 
-use App\Entity\Payment;
-use App\Entity\Reservation;
-use App\Repository\PaymentRepository;
-use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
-use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
-use Symfony\Component\Security\Core\Exception\AccessDeniedException;
+use Symfony\Component\Security\Http\Attribute\IsGranted;
+use App\Entity\Reservation;
 
 #[Route('/client/payment')]
+#[IsGranted('ROLE_USER')]
 class PaymentController extends AbstractController
 {
-    #[Route('/{id}', name: 'client_payment_show', methods: ['GET','POST'])]
-    public function show(Reservation $reservation, Request $request, EntityManagerInterface $em): Response
+
+    #[Route('/{room}', name: 'app_payment', methods: ['GET'], defaults: ['room' => null])]
+    public function index(?int $room = null): Response
     {
-        $user = $this->getUser();
-        if (!$user || $user->getId() !== $reservation->getUser()->getId()) {
-            throw new AccessDeniedException();
-        }
 
-        if ($request->isMethod('POST')) {
-            $payment = new Payment();
-            $payment->setAmount($reservation->getTotalPrice());
-            $payment->setPaymentMethod('card');
-            $payment->setPaymentStatus('paid');
-            $payment->setPaymentDate(new \DateTimeImmutable());
-            $payment->setReservation($reservation);
-
-            $reservation->setStatus('confirmed');
-
-            $em->persist($payment);
-            $em->persist($reservation);
-            $em->flush();
-
-            return $this->redirectToRoute('client_payment_success', ['id' => $reservation->getId()]);
-        }
-
-        return $this->render('client/payment/show.html.twig', ['reservation' => $reservation]);
+        return $this->render('Client/payment/index.html.twig', [
+            'roomId' => $room
+        ]);
     }
 
-    #[Route('/{id}/success', name: 'client_payment_success', methods: ['GET'])]
-    public function success(Reservation $reservation): Response
+    #[Route('/reservation/{id}', name: 'client_payment_show', methods: ['GET'])]
+    public function show(Reservation $reservation): Response
     {
+        $this->denyAccessUnlessGranted('ROLE_USER');
+
         $user = $this->getUser();
-        if (!$user || $user->getId() !== $reservation->getUser()->getId()) {
-            throw new AccessDeniedException();
+        if (!$user || $reservation->getUser()->getId() !== $user->getId()) {
+            throw $this->createAccessDeniedException();
         }
 
-        return $this->render('client/payment/success.html.twig', ['reservation' => $reservation]);
+        return $this->render('client/payment/show.html.twig', [
+            'reservation' => $reservation,
+        ]);
+    }
+
+    #[Route('/payment/success', name: 'app_payment_success', methods: ['POST', 'GET'])]
+    public function success(): Response
+    {
+        $this->addFlash('success', 'Thank you! Your luxury stay has been confirmed.');
+        return $this->redirectToRoute('app_home');
     }
 }

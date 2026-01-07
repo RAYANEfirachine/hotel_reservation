@@ -13,11 +13,12 @@ class Reservation
     #[ORM\Column(type: 'integer')]
     private ?int $id = null;
 
+    // إضافة ? للسماح بـ null برمجياً لتجنب خطأ الـ Type mismatch قبل الـ validation
     #[ORM\Column(type: 'date')]
-    private \DateTimeInterface $checkInDate;
+    private ?\DateTimeInterface $checkInDate = null;
 
     #[ORM\Column(type: 'date')]
-    private \DateTimeInterface $checkOutDate;
+    private ?\DateTimeInterface $checkOutDate = null;
 
     #[ORM\Column(type: 'string', length: 50)]
     private string $status = 'pending';
@@ -27,86 +28,39 @@ class Reservation
 
     #[ORM\ManyToOne(targetEntity: User::class)]
     #[ORM\JoinColumn(nullable: false)]
-    private User $user;
+    private ?User $user = null;
 
     #[ORM\ManyToOne(targetEntity: Room::class)]
     #[ORM\JoinColumn(nullable: false)]
-    private Room $room;
+    private ?Room $room = null;
 
-    public function getId(): ?int
-    {
-        return $this->id;
-    }
+    public function getId(): ?int { return $this->id; }
 
-    public function getCheckInDate(): \DateTimeInterface
-    {
-        return $this->checkInDate;
-    }
+    public function getCheckInDate(): ?\DateTimeInterface { return $this->checkInDate; }
 
-    public function setCheckInDate(\DateTimeInterface $checkInDate): self
+    public function setCheckInDate(?\DateTimeInterface $checkInDate): self
     {
         $this->checkInDate = $checkInDate;
-
         return $this;
     }
 
-    public function getCheckOutDate(): \DateTimeInterface
-    {
-        return $this->checkOutDate;
-    }
+    public function getCheckOutDate(): ?\DateTimeInterface { return $this->checkOutDate; }
 
-    public function setCheckOutDate(\DateTimeInterface $checkOutDate): self
+    public function setCheckOutDate(?\DateTimeInterface $checkOutDate): self
     {
         $this->checkOutDate = $checkOutDate;
-
         return $this;
     }
 
-    public function getStatus(): string
-    {
-        return $this->status;
-    }
+    public function getStatus(): string { return $this->status; }
+    public function setStatus(string $status): self { $this->status = $status; return $this; }
 
-    public function setStatus(string $status): self
-    {
-        $this->status = $status;
+    public function getTotalPrice(): string { return $this->totalPrice; }
+    public function setTotalPrice(string $totalPrice): self { $this->totalPrice = $totalPrice; return $this; }
 
-        return $this;
-    }
+    public function getUser(): ?User { return $this->user; }
+    public function setUser(?User $user): self { $this->user = $user; return $this; }
 
-    public function getTotalPrice(): string
-    {
-        return $this->totalPrice;
-    }
-
-    public function setTotalPrice(string $totalPrice): self
-    {
-        $this->totalPrice = $totalPrice;
-
-        return $this;
-    }
-
-    public function getUser(): User
-    {
-        return $this->user;
-    }
-
-    public function setUser(User $user): self
-    {
-        $this->user = $user;
-
-        return $this;
-    }
-
-    public function getRoom(): Room
-    {
-        return $this->room;
-    }
-
-    public function setRoom(Room $room): self
-    {
-        $this->room = $room;
-
-        return $this;
-    }
+    public function getRoom(): ?Room { return $this->room; }
+    public function setRoom(?Room $room): self { $this->room = $room; return $this; }
 }
