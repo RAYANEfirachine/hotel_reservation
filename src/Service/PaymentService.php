@@ -21,5 +21,5 @@ class PaymentService
         return $payment;
     }
 
-    // TODO: integrate with real payment gateway (simulation for now)
+
 }

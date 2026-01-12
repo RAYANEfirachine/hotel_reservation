@@ -1,0 +1,110 @@
+@import url('https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700&family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap');
+
+:root {
+    --gold: #c5a059;
+    --dark: #1a1a1a;
+    --soft-white: #fdfdfb;
+    --border: #eceae4;
+    --danger: #e63946;
+}
+
+.bookings-page {
+    padding: 60px 20px;
+    background-color: var(--soft-white);
+    min-height: 100vh;
+    font-family: 'Plus Jakarta Sans', sans-serif;
+}
+
+.bookings-container {
+    max-width: 1100px;
+    margin: 0 auto;
+}
+
+.page-header {
+    text-align: center;
+    margin-bottom: 50px;
+}
+
+.page-header h1 {
+    font-family: 'Playfair Display', serif;
+    font-size: 38px;
+    color: var(--dark);
+    margin-bottom: 10px;
+}
+
+.page-header p {
+    color: #888;
+    letter-spacing: 1px;
+}
+
+.bookings-card {
+    background: white;
+    border-radius: 20px;
+    border: 1px solid var(--border);
+    box-shadow: 0 20px 60px rgba(0,0,0,0.03);
+    overflow: hidden;
+}
+
+.custom-table {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+.custom-table th {
+    background: #fcfbf8;
+    padding: 22px;
+    text-align: left;
+    font-size: 11px;
+    text-transform: uppercase;
+    color: var(--gold);
+    letter-spacing: 1.5px;
+    border-bottom: 2px solid var(--border);
+}
+
+.custom-table td {
+    padding: 20px 22px;
+    border-bottom: 1px solid #f8f8f4;
+    font-size: 14px;
+    color: var(--dark);
+}
+
+.custom-table tr:last-child td { border-bottom: none; }
+
+.res-number { font-weight: 700; color: var(--gold); }
+.room-id { font-weight: 600; }
+
+.status-badge {
+    padding: 6px 14px;
+    border-radius: 50px;
+    font-size: 11px;
+    font-weight: 700;
+    text-transform: uppercase;
+}
+
+.status-confirmed { background: #e7f5ea; color: #2d8a39; }
+.status-cancelled { background: #fee2e2; color: #dc2626; }
+.status-pending { background: #fdfbf7; color: #b7791f; border: 1px solid var(--border); }
+
+.btn-cancel-action {
+    background: transparent;
+    border: 1px solid #eee;
+    color: #999;
+    padding: 8px 16px;
+    border-radius: 8px;
+    font-size: 12px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: 0.3s;
+}
+
+.btn-cancel-action:hover {
+    border-color: var(--danger);
+    color: var(--danger);
+    background: #fff5f5;
+}
+
+.empty-state {
+    padding: 80px 0;
+    text-align: center;
+    color: #bbb;
+}

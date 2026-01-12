@@ -3,9 +3,13 @@
 namespace App\Entity;
 
 use App\Repository\RoomRepository;
+use Doctrine\Common\Collections\ArrayCollection; // أضف هذا
+use Doctrine\Common\Collections\Collection;      // أضف هذا
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 
 #[ORM\Entity(repositoryClass: RoomRepository::class)]
+#[UniqueEntity(fields: ['roomNumber'], message: 'This room number already exists.')]
 class Room
 {
     #[ORM\Id]
@@ -13,7 +17,7 @@ class Room
     #[ORM\Column(type: 'integer')]
     private ?int $id = null;
 
-    #[ORM\Column(type: 'string', length: 50)]
+    #[ORM\Column(type: 'string', length: 50, unique: true)]
     private string $roomNumber;
 
     #[ORM\Column(type: 'string', length: 50)]
@@ -22,6 +26,20 @@ class Room
     #[ORM\ManyToOne(targetEntity: RoomType::class)]
     #[ORM\JoinColumn(nullable: false)]
     private RoomType $roomType;
+
+    #[ORM\Column(length: 255, nullable: true)]
+    private ?string $image = null;
+
+    /**
+     * إضافة العلاقة مع الحجوزات مع خاصية التدمير المتسلسل
+     */
+    #[ORM\OneToMany(mappedBy: 'room', targetEntity: Reservation::class, cascade: ['remove'], orphanRemoval: true)]
+    private Collection $reservations;
+
+    public function __construct()
+    {
+        $this->reservations = new ArrayCollection();
+    }
 
     public function getId(): ?int
     {
@@ -36,7 +54,6 @@ class Room
     public function setRoomNumber(string $roomNumber): self
     {
         $this->roomNumber = $roomNumber;
-
         return $this;
     }
 
@@ -48,7 +65,6 @@ class Room
     public function setStatus(string $status): self
     {
         $this->status = $status;
-
         return $this;
     }
 
@@ -60,7 +76,25 @@ class Room
     public function setRoomType(RoomType $roomType): self
     {
         $this->roomType = $roomType;
-
         return $this;
+    }
+
+    public function getImage(): ?string
+    {
+        return $this->image;
+    }
+
+    public function setImage(?string $image): static
+    {
+        $this->image = $image;
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, Reservation>
+     */
+    public function getReservations(): Collection
+    {
+        return $this->reservations;
     }
 }

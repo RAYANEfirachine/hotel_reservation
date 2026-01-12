@@ -1,0 +1,98 @@
+@import url('https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700&family=Plus+Jakarta+Sans:wght@400;600;700&display=swap');
+
+:root {
+    --royal-gold: #c5a059;
+    --dark-slate: #1a1a1a;
+    --soft-white: #fdfdfb;
+}
+
+.success-wrapper {
+    min-height: 80vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: var(--soft-white);
+    font-family: 'Plus Jakarta Sans', sans-serif;
+    padding: 20px;
+}
+
+.success-card {
+    background: #ffffff;
+    width: 100%;
+    max-width: 600px;
+    padding: 60px 40px;
+    border-radius: 30px;
+    box-shadow: 0 30px 70px rgba(0,0,0,0.05);
+    text-align: center;
+    border: 1px solid #f0eee9;
+}
+
+.success-icon {
+    width: 100px;
+    height: 100px;
+    background: #fdfbf7;
+    border: 2px solid var(--royal-gold);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 0 auto 30px;
+    color: var(--royal-gold);
+    font-size: 40px;
+    animation: scaleUp 0.5s ease-out;
+}
+
+@keyframes scaleUp {
+    0% { transform: scale(0); opacity: 0; }
+    100% { transform: scale(1); opacity: 1; }
+}
+
+.success-card h1 {
+    font-family: 'Playfair Display', serif;
+    font-size: 32px;
+    color: var(--dark-slate);
+    margin-bottom: 15px;
+}
+
+.success-card p {
+    color: #888;
+    line-height: 1.6;
+    margin-bottom: 40px;
+    font-size: 16px;
+}
+
+.success-actions {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+}
+
+.btn-royal {
+    background: var(--dark-slate);
+    color: white;
+    padding: 18px 30px;
+    border-radius: 15px;
+    text-decoration: none;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    transition: 0.3s;
+}
+
+.btn-royal:hover {
+    background: var(--royal-gold);
+    transform: translateY(-3px);
+    box-shadow: 0 10px 20px rgba(197, 160, 89, 0.2);
+}
+
+.link-secondary {
+    color: #aaa;
+    text-decoration: none;
+    font-size: 14px;
+    font-weight: 600;
+    transition: 0.3s;
+}
+
+.link-secondary:hover {
+    color: var(--dark-slate);
+}

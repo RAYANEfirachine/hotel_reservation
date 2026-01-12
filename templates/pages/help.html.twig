@@ -1,0 +1,33 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Help Center - LuxeStay{% endblock %}
+
+{% block stylesheets %}
+    <link rel="stylesheet" href="{{ asset('css/legal.css') }}">
+{% endblock %}
+
+{% block body %}
+<div class="legal-page">
+    <div class="legal-container">
+        <h1>Help Center</h1>
+        <p>Welcome to LuxeStay Support. How can we assist you today?</p>
+
+        <div class="faq-item">
+            <span class="faq-question">How do I cancel my reservation?</span>
+            <p>You can cancel your booking via the "My Bookings" section in your dashboard up to 24 hours before your check-in date.</p>
+        </div>
+
+        <div class="faq-item">
+            <span class="faq-question">What payment methods do you accept?</span>
+            <p>We accept all major credit cards (Visa, Mastercard, AMEX) and secure digital payments.</p>
+        </div>
+
+        <div class="contact-card">
+            <h2>Still need help?</h2>
+            <p>Our concierge team is available 24/7.</p>
+            <strong>Email:</strong> support@luxestay.com<br>
+            <strong>Phone:</strong> 0800897165
+        </div>
+    </div>
+</div>
+{% endblock %}

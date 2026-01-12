@@ -1,0 +1,125 @@
+@import url('https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700&family=Plus+Jakarta+Sans:wght@400;600;700&display=swap');
+
+:root {
+    --gold: #c5a059;
+    --dark-royal: #1a1a1a;
+    --soft-cream: #fdfbf7;
+    --border: #e5e2d9;
+}
+
+.config-wrapper {
+    min-height: 100vh;
+    background-color: #f9f9f7;
+    padding: 50px 20px;
+    font-family: 'Plus Jakarta Sans', sans-serif;
+}
+
+.config-card {
+    max-width: 700px;
+    margin: 0 auto;
+    background: #ffffff;
+    border-radius: 20px;
+    box-shadow: 0 40px 100px rgba(0,0,0,0.03);
+    border: 1px solid var(--border);
+    overflow: hidden;
+}
+
+.config-header {
+    background: var(--dark-royal);
+    padding: 40px;
+    color: white;
+}
+
+.config-header h1 {
+    font-family: 'Playfair Display', serif;
+    font-size: 28px;
+    margin: 0;
+    color: var(--gold);
+}
+
+.config-header p {
+    font-size: 14px;
+    opacity: 0.7;
+    margin-top: 10px;
+}
+
+.config-body {
+    padding: 40px;
+}
+
+/* تنسيق الحقول */
+.field-block {
+    margin-bottom: 25px;
+}
+
+.field-block label {
+    display: block;
+    font-size: 11px;
+    font-weight: 700;
+    text-transform: uppercase;
+    color: var(--gold);
+    letter-spacing: 1.2px;
+    margin-bottom: 10px;
+}
+
+.field-block input {
+    width: 100%;
+    padding: 14px 18px;
+    border-radius: 10px;
+    border: 1px solid var(--border);
+    background: var(--soft-cream);
+    font-size: 15px;
+    transition: 0.3s;
+}
+
+.field-block input:focus {
+    outline: none;
+    border-color: var(--gold);
+    background: white;
+    box-shadow: 0 5px 15px rgba(197, 160, 89, 0.1);
+}
+
+/* أزرار التحكم */
+.footer-actions {
+    margin-top: 40px;
+    display: flex;
+    gap: 15px;
+    border-top: 1px solid var(--border);
+    padding-top: 30px;
+}
+
+.btn-update-gold {
+    flex: 2;
+    background: var(--gold);
+    color: white;
+    border: none;
+    padding: 15px;
+    border-radius: 10px;
+    font-weight: 700;
+    text-transform: uppercase;
+    cursor: pointer;
+    transition: 0.3s;
+}
+
+.btn-update-gold:hover {
+    background: var(--dark-royal);
+    transform: translateY(-2px);
+}
+
+.btn-cancel-light {
+    flex: 1;
+    background: white;
+    color: #666;
+    border: 1px solid var(--border);
+    padding: 15px;
+    border-radius: 10px;
+    text-decoration: none;
+    text-align: center;
+    font-weight: 600;
+    transition: 0.3s;
+}
+
+.btn-cancel-light:hover {
+    background: #f5f5f5;
+    color: var(--dark-royal);
+}

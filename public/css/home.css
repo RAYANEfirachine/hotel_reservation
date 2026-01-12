@@ -1,0 +1,88 @@
+@import url('https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700;900&family=Plus+Jakarta+Sans:wght@300;400;600&display=swap');
+
+:root {
+    --gold: #c5a059;
+    --white: #ffffff;
+    --dark: #121212;
+}
+
+body {
+    margin: 0;
+    padding: 0;
+    font-family: 'Plus Jakarta Sans', sans-serif;
+    background-color: #fdfdfb;
+}
+
+/* قسم الترحيب الرئيسي */
+.hero-section {
+    height: 80vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    background: linear-gradient(rgba(0,0,0,0.4), rgba(0,0,0,0.4)),
+                url('https://images.unsplash.com/photo-1542314831-068cd1dbfeeb?q=80&w=2070') no-repeat center center/cover;
+    color: var(--white);
+    padding: 0 20px;
+}
+
+.hero-content h1 {
+    font-family: 'Playfair Display', serif;
+    font-size: clamp(3rem, 8vw, 5rem);
+    margin: 0;
+    letter-spacing: 2px;
+}
+
+.hero-content p {
+    font-size: 1.2rem;
+    font-weight: 300;
+    margin-top: 15px;
+    letter-spacing: 3px;
+    text-transform: uppercase;
+    color: var(--gold);
+}
+
+
+.features-section {
+    padding: 80px 10%;
+}
+
+.feature-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 30px;
+}
+
+.feature-card {
+    background: white;
+    padding: 40px;
+    border-radius: 0;
+    border: 1px solid #eee;
+    text-align: center;
+    transition: 0.4s;
+}
+
+.feature-card:hover {
+    box-shadow: 0 20px 40px rgba(0,0,0,0.05);
+    border-color: var(--gold);
+}
+
+.feature-card h5 {
+    font-family: 'Playfair Display', serif;
+    font-size: 1.5rem;
+    color: var(--dark);
+    margin-bottom: 15px;
+}
+
+.feature-card p {
+    color: #777;
+    line-height: 1.6;
+    font-size: 0.95rem;
+}
+
+.gold-divider {
+    width: 50px;
+    height: 2px;
+    background: var(--gold);
+    margin: 20px auto;
+}

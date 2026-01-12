@@ -1,0 +1,137 @@
+@import url('https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700&family=Plus+Jakarta+Sans:wght@400;600;700&display=swap');
+
+:root {
+    --gold: #c5a059;
+    --dark: #1a1a1a;
+    --border: #eceae4;
+    --danger: #d9534f;
+}
+
+.types-page {
+    padding: 40px;
+    background: #fdfdfb;
+    min-height: 100vh;
+    font-family: 'Plus Jakarta Sans', sans-serif;
+}
+
+.types-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 35px;
+}
+
+.types-header h1 {
+    font-family: 'Playfair Display', serif;
+    font-size: 34px;
+    color: var(--dark);
+    margin: 0;
+}
+
+.btn-new-type {
+    background: var(--dark);
+    color: white;
+    padding: 12px 25px;
+    border-radius: 10px;
+    text-decoration: none;
+    font-weight: 700;
+    transition: 0.3s;
+    border: 1px solid var(--dark);
+}
+
+.btn-new-type:hover {
+    background: var(--gold);
+    border-color: var(--gold);
+    transform: translateY(-2px);
+}
+
+.catalog-card {
+    background: white;
+    border-radius: 20px;
+    border: 1px solid var(--border);
+    box-shadow: 0 10px 30px rgba(0,0,0,0.02);
+    overflow: hidden;
+}
+
+.catalog-table {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+.catalog-table th {
+    background: #faf9f6;
+    padding: 20px;
+    text-align: left;
+    font-size: 11px;
+    text-transform: uppercase;
+    letter-spacing: 1.5px;
+    color: var(--gold);
+    border-bottom: 2px solid var(--border);
+}
+
+.catalog-table td {
+    padding: 20px;
+    border-bottom: 1px solid var(--border);
+    font-size: 15px;
+    vertical-align: middle;
+}
+
+.type-badge {
+    font-weight: 700;
+    color: var(--dark);
+    font-size: 16px;
+}
+
+.capacity-pill {
+    background: #f1f1f1;
+    padding: 4px 12px;
+    border-radius: 6px;
+    font-size: 13px;
+    color: #555;
+    font-weight: 600;
+}
+
+.price-text {
+    color: var(--gold);
+    font-weight: 800;
+    font-size: 17px;
+}
+
+.price-text small {
+    font-size: 12px;
+    font-weight: 400;
+    color: #999;
+}
+
+/* أزرار الإدارة */
+.actions-cell {
+    text-align: right;
+}
+
+.link-edit {
+    color: var(--dark);
+    text-decoration: none;
+    font-weight: 600;
+    margin-right: 20px;
+    border-bottom: 2px solid var(--gold);
+    padding-bottom: 2px;
+    transition: 0.3s;
+}
+
+.link-edit:hover {
+    color: var(--gold);
+}
+
+.btn-delete-link {
+    background: none;
+    border: none;
+    color: #bbb;
+    cursor: pointer;
+    font-weight: 600;
+    font-family: inherit;
+    transition: 0.3s;
+}
+
+.btn-delete-link:hover {
+    color: var(--danger);
+}

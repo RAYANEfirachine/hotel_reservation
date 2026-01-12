@@ -1,0 +1,171 @@
+@import url('https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700&family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap');
+
+:root {
+    --color-primary: #c5a059; /* Royal Gold */
+    --color-dark: #1a1a1a;
+    --color-bg: #fdfdfb;
+    --spacing-md: 1rem;
+    --shadow: 0 20px 40px rgba(0,0,0,0.05);
+}
+
+.page-container {
+    background-color: var(--color-bg);
+    min-height: 100vh;
+    font-family: 'Plus Jakarta Sans', sans-serif;
+    padding-bottom: 80px;
+}
+
+/* Header Section */
+.page-header {
+    background: var(--color-dark);
+    color: white;
+    padding: 100px 20px;
+    text-align: center;
+    background-image: linear-gradient(rgba(0,0,0,0.6), rgba(0,0,0,0.6)), url('https://images.unsplash.com/photo-1542314831-068cd1dbfeeb?auto=format&fit=crop&w=1350&q=80');
+    background-size: cover;
+    background-position: center;
+    margin-bottom: -60px;
+}
+
+.page-header__title {
+    font-family: 'Playfair Display', serif;
+    font-size: 3rem;
+    margin-bottom: 10px;
+    color: var(--color-primary);
+}
+
+.page-header__subtitle {
+    font-weight: 300;
+    letter-spacing: 1px;
+    opacity: 0.9;
+}
+
+/* Content & Card */
+.form-container {
+    max-width: 800px;
+    margin: 0 auto;
+    padding: 0 20px;
+}
+
+.card {
+    background: #fff;
+    border-radius: 20px;
+    box-shadow: var(--shadow);
+    overflow: hidden;
+    border: 1px solid #f0eee9;
+}
+
+.card__header {
+    background: #faf9f6;
+    padding: 30px 40px;
+    border-bottom: 1px solid #eee;
+}
+
+.card__body {
+    padding: 40px;
+}
+
+/* Form Styling */
+.form__group {
+    margin-bottom: 25px;
+}
+
+.form__row {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 20px;
+}
+
+label {
+    display: block;
+    font-weight: 700;
+    font-size: 0.8rem;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    color: var(--color-dark);
+}
+
+.form__control {
+    width: 100%;
+    padding: 15px 20px;
+    border-radius: 12px;
+    border: 1px solid #e2e2d5;
+    background: #fdfbf7;
+    font-family: inherit;
+    font-size: 1rem;
+    transition: all 0.3s ease;
+}
+
+.form__control:focus {
+    outline: none;
+    border-color: var(--color-primary);
+    background: white;
+    box-shadow: 0 0 10px rgba(197, 160, 89, 0.1);
+}
+
+.form__error {
+    color: #dc2626;
+    font-size: 0.85rem;
+    margin-top: 5px;
+    display: block;
+}
+
+/* Buttons */
+.form__actions {
+    display: flex;
+    gap: 15px;
+    margin-top: 40px;
+}
+
+.btn {
+    padding: 15px 30px;
+    border-radius: 12px;
+    font-weight: 700;
+    text-transform: uppercase;
+    cursor: pointer;
+    transition: 0.3s;
+    text-decoration: none;
+    text-align: center;
+    border: none;
+    display: inline-block;
+}
+
+.btn--primary {
+    background: var(--color-dark);
+    color: white;
+    flex: 2;
+}
+
+.btn--primary:hover {
+    background: var(--color-primary);
+    transform: translateY(-2px);
+}
+
+.btn--outline {
+    background: transparent;
+    border: 1px solid #e2e2d5;
+    color: #888;
+    flex: 1;
+}
+
+.btn--outline:hover {
+    background: #f5f5f5;
+    color: var(--color-dark);
+}
+
+.btn--lg {
+    font-size: 1rem;
+}
+
+/* Responsive */
+@media (max-width: 600px) {
+    .form__row {
+        grid-template-columns: 1fr;
+    }
+    .form__actions {
+        flex-direction: column;
+    }
+    .page-header__title {
+        font-size: 2rem;
+    }
+}

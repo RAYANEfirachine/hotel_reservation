@@ -2,26 +2,41 @@
 
 {% block title %}New Room Type{% endblock %}
 
+{% block stylesheets %}
+    <link rel="stylesheet" href="{{ asset('css/room_type_config2.css') }}">
+{% endblock %}
+
 {% block body %}
-    <div class="container container-max">
-        <div class="mb-3">
-            <h1 class="h3">New Room Type</h1>
-            <p class="text-muted">Create a new room type for the hotel.</p>
-        </div>
+<div class="config-wrapper">
+    <div class="config-card">
+        <header class="config-header">
+            <h1>Create New Category</h1>
+            <p>Define a new accommodation tier and set its market value.</p>
+        </header>
 
-        <div class="card">
-            <div class="card-body">
-                {{ form_start(form) }}
-                    <div class="mb-3">{{ form_row(form.type) }}</div>
-                    <div class="mb-3">{{ form_row(form.capacity) }}</div>
-                    <div class="mb-3">{{ form_row(form.pricePerDay) }}</div>
+        <div class="config-body">
+            {{ form_start(form) }}
+                <div class="field-block">
+                    {{ form_label(form.type, 'Type Name') }}
+                    {{ form_widget(form.type, {'attr': {'placeholder': 'e.g. Presidential Suite, Deluxe...'}}) }}
+                </div>
 
-                    <div class="d-flex gap-2">
-                        <button class="btn btn-primary">Save</button>
-                        <a class="btn btn-outline-secondary" href="{{ path('admin_room_type_index') }}">Back</a>
-                    </div>
-                {{ form_end(form) }}
-            </div>
+                <div class="field-block">
+                    {{ form_label(form.capacity, 'Standard Occupancy') }}
+                    {{ form_widget(form.capacity, {'attr': {'placeholder': 'Number of guests'}}) }}
+                </div>
+
+                <div class="field-block">
+                    {{ form_label(form.pricePerDay, 'Daily Rate (USD)') }}
+                    {{ form_widget(form.pricePerDay, {'attr': {'placeholder': '0.00'}}) }}
+                </div>
+
+                <div class="footer-actions">
+                    <button type="submit" class="btn-save-gold">Create Category</button>
+                    <a href="{{ path('admin_room_type_index') }}" class="btn-back-link">Cancel</a>
+                </div>
+            {{ form_end(form) }}
         </div>
     </div>
+</div>
 {% endblock %}

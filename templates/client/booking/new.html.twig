@@ -1,24 +1,119 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}New Reservation{% endblock %}
+{% block title %}Complete Your Booking - LuxeStay{% endblock %}
+
+{% block stylesheets %}
+    <link rel="stylesheet" href="{{ asset('css/booking_page.css') }}">
+    <style>
+
+        .btn--payment {
+            background-color: var(--dark-bg, #1a1a1a);
+            color: #fff;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+            transition: all 0.3s ease;
+        }
+        .btn--payment:hover {
+            background-color: var(--primary-gold, #c5a059);
+            transform: translateY(-2px);
+        }
+        .payment-icons {
+            font-size: 1.2rem;
+            margin-left: 8px;
+        }
+    </style>
+{% endblock %}
 
 {% block body %}
-    <div class="container container-max d-flex justify-content-center">
-        <div class="card w-100" style="max-width:720px">
-            <div class="card-body">
-                <h1 class="h4 mb-3">New Reservation</h1>
-                {{ form_start(form) }}
-                    <div class="mb-3">{{ form_row(form.room) }}</div>
-                    <div class="mb-3 d-md-flex gap-3">
-                        <div class="flex-fill">{{ form_row(form.checkInDate) }}</div>
-                        <div class="flex-fill">{{ form_row(form.checkOutDate) }}</div>
+<div class="page-container">
+
+    <div class="page-header">
+        <div class="page-header__content">
+            <h1 class="page-header__title">Securiser votre reservation</h1>
+            <p class="page-header__subtitle">Choose your dates and complete your luxury accommodation booking</p>
+        </div>
+    </div>
+
+
+    <div class="page-content">
+        <div class="form-container">
+            <div class="card">
+                <div class="card__header">
+                    <h3 style="margin: 0; color: var(--color-primary); font-family: 'Playfair Display', serif;">Booking Details</h3>
+                </div>
+
+                <div class="card__body">
+                    {{ form_start(form, {'attr': {'class': 'form', 'novalidate': 'novalidate'}}) }}
+
+
+                        <div class="form__group">
+                            {{ form_label(form.room, 'Select Your Preferred Room', {'label_attr': {'class': 'form__label'}}) }}
+                            {{ form_widget(form.room, {'attr': {'class': 'form__control'}}) }}
+                            {% if form.room.vars.errors %}
+                                <div class="form__error">
+                                    {% for error in form.room.vars.errors %}
+                                        <p>{{ error.message }}</p>
+                                    {% endfor %}
+                                </div>
+                            {% endif %}
+                        </div>
+
+
+                        <div class="form__row">
+                            <div class="form__group">
+                                {{ form_label(form.checkInDate, 'Check-In Date', {'label_attr': {'class': 'form__label'}}) }}
+                                {{ form_widget(form.checkInDate, {'attr': {'class': 'form__control'}}) }}
+                                {% if form.checkInDate.vars.errors %}
+                                    <div class="form__error">
+                                        {% for error in form.checkInDate.vars.errors %}
+                                            <p>{{ error.message }}</p>
+                                        {% endfor %}
+                                    </div>
+                                {% endif %}
+                            </div>
+
+                            <div class="form__group">
+                                {{ form_label(form.checkOutDate, 'Check-Out Date', {'label_attr': {'class': 'form__label'}}) }}
+                                {{ form_widget(form.checkOutDate, {'attr': {'class': 'form__control'}}) }}
+                                {% if form.checkOutDate.vars.errors %}
+                                    <div class="form__error">
+                                        {% for error in form.checkOutDate.vars.errors %}
+                                            <p>{{ error.message }}</p>
+                                        {% endfor %}
+                                    </div>
+                                {% endif %}
+                            </div>
+                        </div>
+
+
+                        <div class="form__actions" style="margin-top: 30px; display: flex; flex-direction: column; gap: 15px;">
+
+
+                            <button type="submit" class="btn btn--primary btn--lg btn--payment">
+                                <span>Confirme </span>
+
+                            </button>
+
+
+                            <a href="{{ path('client_room_index') }}" class="btn btn--outline btn--lg" style="text-align: center;">
+                                Cancel & Back to Rooms
+                            </a>
+                        </div>
+
+                    {{ form_end(form) }}
+                </div>
+
+
+                <div class="card__footer" style="padding: 20px; background: #fdfbf7; text-align: center; border-top: 1px solid #f0eee9;">
+                    <div style="display: flex; justify-content: center; align-items: center; gap: 20px; opacity: 0.6;">
+                        <span style="font-size: 12px;"><i class="fas fa-lock"></i> SSL Secure</span>
+                        <span style="font-size: 12px;">💳 Visa / Mastercard</span>
                     </div>
-                    <div class="d-flex gap-2">
-                        <button class="btn btn-primary">Reserve</button>
-                        <a class="btn btn-outline-secondary" href="{{ path('client_room_index') }}">Back</a>
-                    </div>
-                {{ form_end(form) }}
+                </div>
             </div>
         </div>
     </div>
+</div>
 {% endblock %}

@@ -1,46 +1,44 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Welcome to Hotel{% endblock %}
+{% block title %}The Royal Sovereign | Welcome{% endblock %}
+
+{% block stylesheets %}
+    <link rel="stylesheet" href="{{ asset('css/home.css') }}">
+{% endblock %}
 
 {% block body %}
-    <div class="container container-max">
-        <section class="py-5 text-center">
-            <div class="row justify-content-center">
-                <div class="col-lg-8">
-                    <h1 class="display-5 fw-bold">Hotel</h1>
-                    <p class="lead text-muted">Comfort and service for your perfect stay.</p>
+    {# قسم الترحيب #}
+    <section class="hero-section">
+        <div class="hero-content">
+            <h1>The Royal Sovereign</h1>
+            <div class="gold-divider"></div>
+            <p>Excellence in every detail</p>
+        </div>
+    </section>
 
-                    {% include '_partials/cta.html.twig' %}
-                </div>
-            </div>
-        </section>
+    {# قسم المميزات #}
+    <div class="container-max">
+        <section class="features-section">
+            <div class="feature-grid">
 
-        <section class="py-4">
-            <div class="row g-4">
-                <div class="col-md-4">
-                    <div class="card h-100">
-                        <div class="card-body">
-                            <h5 class="card-title">Comfortable Rooms</h5>
-                            <p class="card-text text-muted">Well-appointed rooms designed for rest and productivity.</p>
-                        </div>
-                    </div>
+                <div class="feature-card">
+                    <h5>Comfortable Rooms</h5>
+                    <div class="gold-divider"></div>
+                    <p>Experience unparalleled tranquility in our masterfully designed suites, where luxury meets productivity.</p>
                 </div>
-                <div class="col-md-4">
-                    <div class="card h-100">
-                        <div class="card-body">
-                            <h5 class="card-title">Exceptional Service</h5>
-                            <p class="card-text text-muted">Friendly staff ready to assist 24/7.</p>
-                        </div>
-                    </div>
+
+                <div class="feature-card">
+                    <h5>Exceptional Service</h5>
+                    <div class="gold-divider"></div>
+                    <p>Our dedicated concierge and staff are committed to fulfilling your needs 24/7 with a personal touch.</p>
                 </div>
-                <div class="col-md-4">
-                    <div class="card h-100">
-                        <div class="card-body">
-                            <h5 class="card-title">Great Location</h5>
-                            <p class="card-text text-muted">Close to local attractions and transport links.</p>
-                        </div>
-                    </div>
+
+                <div class="feature-card">
+                    <h5>Great Location</h5>
+                    <div class="gold-divider"></div>
+                    <p>Located in the heart of the city, we place you steps away from cultural landmarks and premier transport links.</p>
                 </div>
+
             </div>
         </section>
     </div>

@@ -1,0 +1,122 @@
+@import url('https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700&family=Plus+Jakarta+Sans:wght@400;600;700&display=swap');
+
+:root {
+    --gold: #c5a059;
+    --dark: #1a1a1a;
+    --border: #e8e8e1;
+    --bg-soft: #fdfdfb;
+}
+
+.receipt-card {
+    background: #ffffff;
+    max-width: 750px;
+    margin: 40px auto;
+    padding: 50px;
+    border-radius: 10px;
+    border: 1px solid var(--border);
+    box-shadow: 0 15px 40px rgba(0,0,0,0.03);
+    position: relative;
+    overflow: hidden;
+}
+
+/* علامة مائية زخرفية خلفية */
+.receipt-card::before {
+    content: 'PAID';
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%) rotate(-30deg);
+    font-size: 150px;
+    font-weight: 900;
+    color: rgba(0, 0, 0, 0.02);
+    z-index: 0;
+}
+
+.receipt-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    border-bottom: 2px solid var(--gold);
+    padding-bottom: 30px;
+    margin-bottom: 40px;
+    position: relative;
+    z-index: 1;
+}
+
+.receipt-title h2 {
+    font-family: 'Playfair Display', serif;
+    font-size: 28px;
+    margin: 0;
+    color: var(--dark);
+}
+
+.receipt-title span {
+    color: var(--gold);
+    font-weight: 600;
+    font-size: 14px;
+}
+
+.info-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 40px;
+    position: relative;
+    z-index: 1;
+}
+
+.info-item {
+    margin-bottom: 10px;
+}
+
+.info-item label {
+    display: block;
+    font-size: 11px;
+    text-transform: uppercase;
+    color: #999;
+    letter-spacing: 1.2px;
+    margin-bottom: 8px;
+}
+
+.info-item p {
+    font-size: 16px;
+    font-weight: 700;
+    color: var(--dark);
+    margin: 0;
+}
+
+.info-item .amount {
+    font-size: 24px;
+    color: var(--gold);
+    font-family: 'Playfair Display', serif;
+}
+
+.status-box {
+    padding: 8px 15px;
+    border-radius: 4px;
+    font-size: 12px;
+    font-weight: 800;
+    background: #f8f8f4;
+    border: 1px solid var(--border);
+}
+
+.receipt-footer {
+    margin-top: 50px;
+    padding-top: 20px;
+    border-top: 1px dashed var(--border);
+    text-align: center;
+}
+
+.btn-back {
+    display: inline-block;
+    padding: 10px 25px;
+    background: var(--dark);
+    color: #fff;
+    text-decoration: none;
+    border-radius: 5px;
+    font-size: 13px;
+    transition: 0.3s;
+}
+
+.btn-back:hover {
+    background: var(--gold);
+}

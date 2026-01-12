@@ -1,0 +1,118 @@
+@import url('https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700&family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap');
+
+:root {
+    --gold: #c5a059;
+    --dark: #1a1a1a;
+    --light-grey: #f8f9fa;
+    --border: #eceae4;
+    --danger: #e63946;
+}
+
+.rooms-page {
+    padding: 40px;
+    background: #fdfdfb;
+    min-height: 100vh;
+    font-family: 'Plus Jakarta Sans', sans-serif;
+}
+
+.rooms-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 30px;
+}
+
+.rooms-header h1 {
+    font-family: 'Playfair Display', serif;
+    font-size: 34px;
+    color: var(--dark);
+    margin: 0;
+}
+
+.btn-add-room {
+    background: var(--dark);
+    color: white;
+    padding: 12px 25px;
+    border-radius: 8px;
+    text-decoration: none;
+    font-weight: 600;
+    transition: 0.3s;
+    border: 1px solid var(--dark);
+}
+
+.btn-add-room:hover {
+    background: var(--gold);
+    border-color: var(--gold);
+}
+
+.inventory-card {
+    background: white;
+    border-radius: 15px;
+    border: 1px solid var(--border);
+    box-shadow: 0 10px 30px rgba(0,0,0,0.02);
+    overflow: hidden;
+}
+
+.rooms-table {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+.rooms-table th {
+    background: var(--light-grey);
+    padding: 18px 20px;
+    text-align: left;
+    font-size: 12px;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    color: var(--gold);
+    border-bottom: 2px solid var(--border);
+}
+
+.rooms-table td {
+    padding: 18px 20px;
+    border-bottom: 1px solid var(--border);
+    font-size: 14px;
+    color: #444;
+}
+
+.rooms-table tr:hover {
+    background: #fdfbf7;
+}
+
+/* تخصيص حالة الغرفة Status */
+.status-pill {
+    padding: 5px 12px;
+    border-radius: 6px;
+    font-size: 11px;
+    font-weight: 700;
+    text-transform: uppercase;
+}
+
+.available { background: #e7f5ea; color: #2d8a39; }
+.occupied { background: #fff4e5; color: #b7791f; }
+.maintenance { background: #f1f1f1; color: #666; }
+
+/* أزرار العمليات Actions */
+.btn-edit {
+    color: var(--dark);
+    text-decoration: none;
+    font-weight: 600;
+    margin-right: 15px;
+    font-size: 13px;
+    transition: 0.2s;
+}
+
+.btn-edit:hover { color: var(--gold); }
+
+.btn-delete-trigger {
+    background: none;
+    border: none;
+    color: var(--danger);
+    font-weight: 600;
+    cursor: pointer;
+    font-size: 13px;
+    font-family: inherit;
+}
+
+.btn-delete-trigger:hover { text-decoration: underline; }

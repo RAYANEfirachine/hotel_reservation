@@ -1,0 +1,123 @@
+@import url('https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700&family=Plus+Jakarta+Sans:wght@400;600;700&display=swap');
+
+:root {
+    --royal-gold: #c5a059;
+    --dark-slate: #1e1e24;
+    --input-bg: #fdfbf7;
+    --border-soft: #e2e2d5;
+}
+
+.edit-page-wrapper {
+    min-height: 100vh;
+    background-color: #fafafa;
+    padding: 60px 20px;
+    font-family: 'Plus Jakarta Sans', sans-serif;
+}
+
+.form-container {
+    max-width: 600px;
+    margin: 0 auto;
+    background: white;
+    padding: 40px;
+    border-radius: 25px;
+    box-shadow: 0 25px 50px rgba(0,0,0,0.04);
+    border: 1px solid var(--border-soft);
+}
+
+.form-header {
+    text-align: center;
+    margin-bottom: 40px;
+}
+
+.form-header h1 {
+    font-family: 'Playfair Display', serif;
+    font-size: 32px;
+    color: var(--dark-slate);
+    margin-bottom: 10px;
+}
+
+.form-header p {
+    color: #888;
+    font-size: 14px;
+}
+
+
+.form-group-custom {
+    margin-bottom: 25px;
+}
+
+.form-group-custom label {
+    display: block;
+    font-size: 12px;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    color: var(--royal-gold);
+    margin-bottom: 8px;
+    padding-left: 5px;
+}
+
+.form-group-custom input,
+.form-group-custom select {
+    width: 100%;
+    padding: 15px 20px;
+    border-radius: 12px;
+    border: 1px solid var(--border-soft);
+    background-color: var(--input-bg);
+    font-size: 15px;
+    color: var(--dark-slate);
+    transition: all 0.3s ease;
+}
+
+.form-group-custom input:focus,
+.form-group-custom select:focus {
+    outline: none;
+    border-color: var(--royal-gold);
+    background-color: #fff;
+    box-shadow: 0 0 15px rgba(197, 160, 89, 0.1);
+}
+
+
+.action-area {
+    margin-top: 40px;
+    display: flex;
+    gap: 15px;
+}
+
+.btn-update {
+    flex: 2;
+    padding: 16px;
+    background-color: var(--dark-slate);
+    color: white;
+    border: none;
+    border-radius: 12px;
+    font-weight: 700;
+    cursor: pointer;
+    transition: 0.3s;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+}
+
+.btn-update:hover {
+    background-color: var(--royal-gold);
+    transform: translateY(-2px);
+}
+
+.btn-back {
+    flex: 1;
+    padding: 16px;
+    background-color: transparent;
+    color: #888;
+    border: 1px solid var(--border-soft);
+    border-radius: 12px;
+    text-decoration: none;
+    text-align: center;
+    font-weight: 600;
+    font-size: 14px;
+    transition: 0.3s;
+}
+
+.btn-back:hover {
+    background-color: #f5f5f5;
+    color: var(--dark-slate);
+}

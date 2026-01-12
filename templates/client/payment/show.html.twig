@@ -1,0 +1,13 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Pay Reservation {{ reservation.id }}{% endblock %}
+
+{% block body %}
+<h1>Pay for Reservation #{{ reservation.id }}</h1>
+<p>Room: {{ reservation.room.roomNumber }} ({{ reservation.room.roomType.type }})</p>
+<p>Check-in: {{ reservation.checkInDate ? reservation.checkInDate|date('Y-m-d') : '' }}</p>
+<p>Check-out: {{ reservation.checkOutDate ? reservation.checkOutDate|date('Y-m-d') : '' }}</p>
+<p>Total: {{ reservation.totalPrice }}</p>
+
+<a href="{{ path('app_payment', {'room': reservation.room.id}) }}" class="btn btn--primary">Proceed to Payment</a>
+{% endblock %}

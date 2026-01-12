@@ -1,0 +1,15 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Reservation {{ reservation.id }} - Admin{% endblock %}
+
+{% block body %}
+<h1>Reservation {{ reservation.id }}</h1>
+<ul>
+    <li>User: {{ reservation.user.email }}</li>
+    <li>Room: {{ reservation.room.roomNumber }}</li>
+    <li>Check-in: {{ reservation.checkInDate ? reservation.checkInDate|date('Y-m-d') : '' }}</li>
+    <li>Check-out: {{ reservation.checkOutDate ? reservation.checkOutDate|date('Y-m-d') : '' }}</li>
+    <li>Status: {{ reservation.status }}</li>
+</ul>
+<a href="{{ path('admin_reservation_index') }}">Back to list</a>
+{% endblock %}

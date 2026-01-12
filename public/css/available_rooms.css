@@ -1,0 +1,142 @@
+@import url('https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700&family=Plus+Jakarta+Sans:wght@300;400;600;700&display=swap');
+
+:root {
+    --royal-gold: #c5a059;
+    --dark-slate: #1a1a1a;
+    --ivory-white: #fdfdfb;
+    --border-color: #eeebe3;
+}
+
+.rooms-gallery {
+    padding: 60px 20px;
+    background-color: var(--ivory-white);
+    min-height: 100vh;
+    font-family: 'Plus Jakarta Sans', sans-serif;
+}
+
+.gallery-header {
+    text-align: center;
+    margin-bottom: 50px;
+}
+
+.gallery-header h1 {
+    font-family: 'Playfair Display', serif;
+    font-size: 3rem;
+    color: var(--dark-slate);
+    margin-bottom: 10px;
+}
+
+.gallery-header p {
+    color: #888;
+    letter-spacing: 1px;
+}
+
+/* Room Grid */
+.room-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+    gap: 30px;
+    max-width: 1200px;
+    margin: 0 auto;
+}
+
+/* Room Card */
+.room-card {
+    background: #ffffff;
+    border-radius: 15px;
+    border: 1px solid var(--border-color);
+    overflow: hidden;
+    transition: all 0.4s cubic-bezier(0.165, 0.84, 0.44, 1);
+    display: flex;
+    flex-direction: column;
+    position: relative;
+}
+
+.room-card:hover {
+    transform: translateY(-10px);
+    box-shadow: 0 20px 40px rgba(0,0,0,0.08);
+    border-color: var(--royal-gold);
+}
+
+.room-card-body {
+    padding: 30px;
+    flex-grow: 1;
+    display: flex;
+    flex-direction: column;
+}
+
+/* Price Badge */
+.price-tag {
+    position: absolute;
+    top: 20px;
+    right: 20px;
+    background: var(--dark-slate);
+    color: white;
+    padding: 8px 15px;
+    border-radius: 8px;
+    font-weight: 700;
+    font-size: 1.1rem;
+}
+
+.price-tag span {
+    color: var(--royal-gold);
+    font-size: 0.8rem;
+    font-weight: 400;
+}
+
+.room-title {
+    font-family: 'Playfair Display', serif;
+    font-size: 1.5rem;
+    color: var(--dark-slate);
+    margin-bottom: 5px;
+}
+
+.room-type-label {
+    font-size: 0.8rem;
+    text-transform: uppercase;
+    letter-spacing: 1.5px;
+    color: var(--royal-gold);
+    font-weight: 700;
+    margin-bottom: 15px;
+    display: block;
+}
+
+.room-features {
+    font-size: 0.9rem;
+    color: #666;
+    margin-bottom: 20px;
+    line-height: 1.6;
+}
+
+/* Action Button */
+.btn-book {
+    background-color: var(--dark-slate);
+    color: white;
+    text-align: center;
+    padding: 15px;
+    border-radius: 10px;
+    text-decoration: none;
+    font-weight: 700;
+    text-transform: uppercase;
+    font-size: 0.85rem;
+    letter-spacing: 1px;
+    transition: 0.3s;
+    margin-top: auto;
+}
+
+.btn-book:hover {
+    background-color: var(--royal-gold);
+}
+
+/* Empty State */
+.empty-gallery {
+    text-align: center;
+    padding: 100px 20px;
+    grid-column: 1 / -1;
+}
+
+.empty-gallery .icon {
+    font-size: 4rem;
+    margin-bottom: 20px;
+    display: block;
+}
