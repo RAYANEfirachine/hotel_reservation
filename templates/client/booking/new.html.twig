@@ -3,10 +3,9 @@
 {% block title %}Complete Your Booking - LuxeStay{% endblock %}
 
 {% block stylesheets %}
-    {# تأكد من إنشاء ملف CSS بهذا الاسم في public/css/booking_page.css #}
     <link rel="stylesheet" href="{{ asset('css/booking_page.css') }}">
     <style>
-        /* إضافة تنسيقات سريعة لزر الدفع الجديد */
+
         .btn--payment {
             background-color: var(--dark-bg, #1a1a1a);
             color: #fff;
@@ -29,15 +28,15 @@
 
 {% block body %}
 <div class="page-container">
-    {# الجزء العلوي: العنوان مع خلفية فاخرة #}
+
     <div class="page-header">
         <div class="page-header__content">
-            <h1 class="page-header__title">Secure Your Reservation</h1>
+            <h1 class="page-header__title">Securiser votre reservation</h1>
             <p class="page-header__subtitle">Choose your dates and complete your luxury accommodation booking</p>
         </div>
     </div>
 
-    {# محتوى الصفحة: نموذج الحجز #}
+
     <div class="page-content">
         <div class="form-container">
             <div class="card">
@@ -48,7 +47,7 @@
                 <div class="card__body">
                     {{ form_start(form, {'attr': {'class': 'form', 'novalidate': 'novalidate'}}) }}
 
-                        {# اختيار الغرفة #}
+
                         <div class="form__group">
                             {{ form_label(form.room, 'Select Your Preferred Room', {'label_attr': {'class': 'form__label'}}) }}
                             {{ form_widget(form.room, {'attr': {'class': 'form__control'}}) }}
@@ -61,7 +60,7 @@
                             {% endif %}
                         </div>
 
-                        {# التواريخ في صف واحد #}
+
                         <div class="form__row">
                             <div class="form__group">
                                 {{ form_label(form.checkInDate, 'Check-In Date', {'label_attr': {'class': 'form__label'}}) }}
@@ -88,16 +87,16 @@
                             </div>
                         </div>
 
-                        {# أزرار التحكم - تم إضافة زر الدفع هنا #}
+
                         <div class="form__actions" style="margin-top: 30px; display: flex; flex-direction: column; gap: 15px;">
 
-                            {# زر التأكيد والذهاب للدفع #}
+
                             <button type="submit" class="btn btn--primary btn--lg btn--payment">
                                 <span>Confirme </span>
 
                             </button>
 
-                            {# زر العودة #}
+
                             <a href="{{ path('client_room_index') }}" class="btn btn--outline btn--lg" style="text-align: center;">
                                 Cancel & Back to Rooms
                             </a>
@@ -106,7 +105,7 @@
                     {{ form_end(form) }}
                 </div>
 
-                {# تذييل البطاقة لإضافة لمسة أمان #}
+
                 <div class="card__footer" style="padding: 20px; background: #fdfbf7; text-align: center; border-top: 1px solid #f0eee9;">
                     <div style="display: flex; justify-content: center; align-items: center; gap: 20px; opacity: 0.6;">
                         <span style="font-size: 12px;"><i class="fas fa-lock"></i> SSL Secure</span>

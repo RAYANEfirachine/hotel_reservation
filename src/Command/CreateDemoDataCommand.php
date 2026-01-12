@@ -25,7 +25,7 @@ class CreateDemoDataCommand extends Command
     {
         $io = new SymfonyStyle($input, $output);
 
-        // Admin user
+
         $admin = new User();
         $admin->setEmail('admin@example.com');
         $admin->setFirstName('Admin');
@@ -33,7 +33,7 @@ class CreateDemoDataCommand extends Command
         $admin->setRoles(['ROLE_ADMIN']);
         $admin->setPassword($this->hasher->hashPassword($admin, 'adminpass'));
 
-        // Client user
+
         $client = new User();
         $client->setEmail('client@example.com');
         $client->setFirstName('Client');
@@ -41,13 +41,13 @@ class CreateDemoDataCommand extends Command
         $client->setRoles(['ROLE_CLIENT']);
         $client->setPassword($this->hasher->hashPassword($client, 'clientpass'));
 
-        // RoomType
+
         $rt = new RoomType();
         $rt->setType('Standard');
         $rt->setCapacity(2);
         $rt->setPricePerDay('99.99');
 
-        // Room
+
         $room = new Room();
         $room->setRoomNumber('101');
         $room->setRoomType($rt);

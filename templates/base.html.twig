@@ -7,7 +7,7 @@
         <title>{% block title %}LuxeStay - Premium Hotel Reservations{% endblock %}</title>
         <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 128 128%22><text y=%221.2em%22 font-size=%2296%22>🏨</text></svg>">
 
-        {# Global Fonts #}
+
         <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700&family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap">
 
         <style>
@@ -183,7 +183,7 @@
                     {% elseif is_granted('ROLE_USER') %}
                         <li><a href="{{ path('client_room_index') }}" class="navbar__link">Browse Rooms</a></li>
 
-                        {# تم إضافة رابط صفحة الحجوزات للعميل هنا #}
+
                         <li><a href="{{ path('client_booking_my_bookings') }}" class="navbar__link" style="color: var(--primary-gold); font-weight: 600;">My Reservations</a></li>
 
                         <li><a href="{{ path('client_booking_new') }}" class="navbar__link">Book Now</a></li>
@@ -227,7 +227,7 @@
                         <a href="{{ path('app_home') }}" class="footer__link">Home</a>
                         <a href="{{ path('client_room_index') }}" class="footer__link">Browse Rooms</a>
 
-                        {# إضافة الرابط في القائمة السفلية أيضاً #}
+
                         {% if is_granted('ROLE_USER') %}
                             <a href="{{ path('client_booking_my_bookings') }}" class="footer__link">My Reservations</a>
                         {% endif %}

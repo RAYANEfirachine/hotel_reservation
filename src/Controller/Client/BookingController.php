@@ -30,7 +30,7 @@ class BookingController extends AbstractController
                 throw $this->createAccessDeniedException();
             }
 
-            // Validate dates and compute total price
+
             $checkIn = $reservation->getCheckInDate();
             $checkOut = $reservation->getCheckOutDate();
             if ($checkOut <= $checkIn) {
@@ -50,7 +50,7 @@ class BookingController extends AbstractController
                     }
                     $reservation->setTotalPrice(number_format($total, 2, '.', ''));
 
-                    // Check for overlapping reservations for the same room (prevent overbooking)
+
                     $overlapCount = $em->getRepository(Reservation::class)
                         ->countOverlappingReservations(
                             $reservation->getRoom(),
@@ -60,7 +60,6 @@ class BookingController extends AbstractController
 
                     if ($overlapCount > 0) {
                         $this->addFlash('error', 'This room is already booked for the selected dates.');
-                        // Temporary debug info: show overlap count and selection (remove in production)
                         $roomId = $reservation->getRoom() ? $reservation->getRoom()->getId() : 'n/a';
                         $checkIn = $reservation->getCheckInDate() ? $reservation->getCheckInDate()->format('Y-m-d') : '-';
                         $checkOut = $reservation->getCheckOutDate() ? $reservation->getCheckOutDate()->format('Y-m-d') : '-';

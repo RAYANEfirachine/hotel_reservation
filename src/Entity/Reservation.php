@@ -13,7 +13,6 @@ class Reservation
     #[ORM\Column(type: 'integer')]
     private ?int $id = null;
 
-    // إضافة ? للسماح بـ null برمجياً لتجنب خطأ الـ Type mismatch قبل الـ validation
     #[ORM\Column(type: 'date')]
     private ?\DateTimeInterface $checkInDate = null;
 
@@ -30,7 +29,8 @@ class Reservation
     #[ORM\JoinColumn(nullable: false)]
     private ?User $user = null;
 
-    #[ORM\ManyToOne(targetEntity: Room::class)]
+    // تعديل العلاقة هنا لترتبط بـ inversedBy الموجود في كلاس Room
+    #[ORM\ManyToOne(targetEntity: Room::class, inversedBy: 'reservations')]
     #[ORM\JoinColumn(nullable: false)]
     private ?Room $room = null;
 

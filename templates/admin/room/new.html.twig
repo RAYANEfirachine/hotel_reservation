@@ -1,20 +1,149 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Register New Room{% endblock %}
+{% block title %}Register New Room - LuxeStay Admin{% endblock %}
 
 {% block stylesheets %}
     <link rel="stylesheet" href="{{ asset('css/new_room.css') }}">
     <style>
-        /* إضافات بسيطة لضمان مظهر البطاقة إذا لم تكن موجودة في ملف CSS الخاص بك */
-        .entry-page-wrapper { padding: 4rem 2rem; display: flex; justify-content: center; }
-        .creation-card { background: white; padding: 2.5rem; border-radius: 15px; box-shadow: 0 10px 30px rgba(0,0,0,0.05); width: 100%; max-width: 600px; }
-        .creation-header h1 { font-family: 'Playfair Display', serif; color: var(--dark-bg); margin-bottom: 0.5rem; }
-        .input-section { margin-bottom: 1.5rem; }
-        .input-section label { display: block; font-weight: 600; margin-bottom: 0.5rem; color: var(--text-gray); }
-        .button-group { display: flex; gap: 1rem; margin-top: 2rem; }
-        .btn-save { background: var(--dark-bg); color: white; border: none; padding: 0.8rem 2rem; border-radius: 8px; cursor: pointer; transition: all 0.3s ease; }
-        .btn-save:hover { background: var(--primary-gold); }
-        .btn-cancel { text-decoration: none; color: var(--text-gray); padding: 0.8rem 2rem; border: 1px solid #ddd; border-radius: 8px; }
+        :root {
+            --primary-gold: #c5a059;
+            --dark-bg: #1a1a1a;
+            --text-gray: #666;
+            --light-bg: #fcfcfc;
+        }
+
+        .entry-page-wrapper {
+            padding: 4rem 2rem;
+            display: flex;
+            justify-content: center;
+            background: var(--light-bg);
+            min-height: 100vh;
+        }
+
+        .creation-card {
+            background: white;
+            padding: 3rem;
+            border-radius: 20px;
+            box-shadow: 0 20px 50px rgba(0,0,0,0.05);
+            width: 100%;
+            max-width: 650px;
+            border: 1px solid #f0f0f0;
+        }
+
+        .creation-header { margin-bottom: 2.5rem; border-left: 4px solid var(--primary-gold); padding-left: 20px; }
+        .creation-header h1 { font-family: 'Playfair Display', serif; color: var(--dark-bg); font-size: 2.2rem; margin: 0; }
+        .creation-header p { color: var(--text-gray); margin-top: 5px; font-size: 0.95rem; }
+
+        .input-section { margin-bottom: 1.8rem; }
+        .input-section label {
+            display: block;
+            font-weight: 700;
+            margin-bottom: 0.7rem;
+            color: #444;
+            text-transform: uppercase;
+            font-size: 0.75rem;
+            letter-spacing: 1.2px;
+        }
+
+        .form-control {
+            width: 100%;
+            padding: 1rem;
+            border: 1.5px solid #eee;
+            border-radius: 10px;
+            transition: all 0.3s ease;
+            background: #fafafa;
+            font-size: 1rem;
+        }
+
+        .form-control:focus {
+            border-color: var(--primary-gold);
+            outline: none;
+            background: #fff;
+            box-shadow: 0 0 0 4px rgba(197, 160, 89, 0.1);
+        }
+
+        /* --- منطقة رفع الصور المطورة --- */
+        .image-upload-container {
+            border: 2px dashed #dcdcdc;
+            padding: 2.5rem;
+            border-radius: 15px;
+            background: #fdfdfd;
+            text-align: center;
+            position: relative;
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            cursor: pointer;
+            overflow: hidden;
+        }
+
+        .image-upload-container:hover {
+            border-color: var(--primary-gold);
+            background: #fff;
+            transform: translateY(-2px);
+            box-shadow: 0 10px 20px rgba(0,0,0,0.02);
+        }
+
+        .upload-placeholder {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .upload-icon { font-size: 2.5rem; margin-bottom: 5px; filter: grayscale(1); transition: 0.3s; }
+        .image-upload-container:hover .upload-icon { filter: grayscale(0); transform: scale(1.1); }
+
+        .upload-text { font-weight: 600; color: #555; font-size: 0.9rem; }
+
+        /* إخفاء الحقل الافتراضي وجعل الحاوية قابلة للضغط */
+        .image-upload-container input[type="file"] {
+            position: absolute;
+            top: 0; left: 0; width: 100%; height: 100%;
+            opacity: 0; cursor: pointer; z-index: 10;
+        }
+
+        .preview-img {
+            max-width: 100%;
+            max-height: 200px;
+            border-radius: 12px;
+            object-fit: cover;
+            box-shadow: 0 8px 25px rgba(0,0,0,0.1);
+        }
+
+        .button-group { display: flex; gap: 1.2rem; margin-top: 3rem; }
+
+        .btn-save {
+            background: var(--dark-bg);
+            color: white;
+            border: none;
+            padding: 1.2rem 2.5rem;
+            border-radius: 12px;
+            cursor: pointer;
+            transition: all 0.4s ease;
+            flex: 2;
+            font-weight: 800;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        .btn-save:hover {
+            background: var(--primary-gold);
+            box-shadow: 0 10px 20px rgba(197, 160, 89, 0.3);
+            transform: translateY(-3px);
+        }
+
+        .btn-cancel {
+            text-decoration: none;
+            color: #888;
+            padding: 1.2rem 1.5rem;
+            border: 1.5px solid #eee;
+            border-radius: 12px;
+            flex: 1;
+            text-align: center;
+            transition: 0.3s;
+            font-weight: 600;
+        }
+
+        .btn-cancel:hover { background: #f5f5f5; color: #333; border-color: #ddd; }
     </style>
 {% endblock %}
 
@@ -23,18 +152,16 @@
     <div class="creation-card">
         <header class="creation-header">
             <h1>New Room</h1>
-            <p>Enter the details to expand your hotel's inventory.</p>
+            <p>Register a new unit to the LuxeStay luxury collection.</p>
         </header>
 
-        {# تم فتح الفورم مرة واحدة فقط هنا #}
-        {{ form_start(form) }}
+        {{ form_start(form, {'attr': {'enctype': 'multipart/form-data', 'id': 'room-form'}}) }}
 
-            {# عرض الأخطاء العامة إن وجدت #}
             {{ form_errors(form) }}
 
             <div class="input-section">
                 {{ form_label(form.roomNumber, 'Designated Room Number') }}
-                {{ form_widget(form.roomNumber, {'attr': {'placeholder': 'e.g. 101, 204...', 'class': 'form-control'}}) }}
+                {{ form_widget(form.roomNumber, {'attr': {'placeholder': 'e.g. 101, 305...', 'class': 'form-control'}}) }}
                 {{ form_errors(form.roomNumber) }}
             </div>
 
@@ -44,7 +171,19 @@
                 {{ form_errors(form.roomType) }}
             </div>
 
-            {# عرض أي حقول متبقية (مثل الحالة Status) تلقائياً لتجنب نسيانها #}
+            <div class="input-section">
+                <label>Room Presentation Photo</label>
+                <div class="image-upload-container">
+                    <div class="upload-placeholder" id="preview-area">
+                        <span class="upload-icon">🖼️</span>
+                        <span class="upload-text">Click or Drag & Drop Photo</span>
+                        <small style="color: #aaa;">JPEG, PNG, WEBP (Max 5MB)</small>
+                    </div>
+                    {{ form_widget(form.image, {'attr': {'onchange': 'handleImagePreview(this)'}}) }}
+                </div>
+                {{ form_errors(form.image) }}
+            </div>
+
             {% if form.status is defined %}
                 <div class="input-section">
                     {{ form_label(form.status) }}
@@ -55,11 +194,30 @@
 
             <div class="button-group">
                 <button type="submit" class="btn-save">Confirm & Save</button>
-                <a href="{{ path('admin_room_index') }}" class="btn-cancel">Back to List</a>
+                <a href="{{ path('admin_room_index') }}" class="btn-cancel">Cancel</a>
             </div>
 
-        {# تم إغلاق الفورم مرة واحدة فقط هنا #}
         {{ form_end(form) }}
     </div>
 </div>
+
+<script>
+    function handleImagePreview(input) {
+        const previewArea = document.getElementById('preview-area');
+        if (input.files && input.files[0]) {
+            const reader = new FileReader();
+
+            reader.onload = function(e) {
+                previewArea.innerHTML = `
+                    <img src="${e.target.result}" class="preview-img">
+                    <p style="margin-top: 15px; color: #c5a059; font-weight: bold; font-size: 0.8rem;">
+                        ✨ Image Selected (Click to change)
+                    </p>
+                `;
+            }
+
+            reader.readAsDataURL(input.files[0]);
+        }
+    }
+</script>
 {% endblock %}

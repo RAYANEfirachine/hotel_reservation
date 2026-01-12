@@ -20,5 +20,5 @@ class ReservationService
         return $reservation;
     }
 
-    // TODO: add availability checks, pricing, cancellation logic
+
 }

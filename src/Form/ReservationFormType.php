@@ -17,13 +17,13 @@ class ReservationFormType extends AbstractType
         $builder
             ->add('room', EntityType::class, [
                 'class' => Room::class,
-                'choice_label' => 'roomNumber', // أو أي حقل يعبر عن الغرفة
+                'choice_label' => 'roomNumber',
                 'attr' => ['class' => 'form__control']
             ])
             ->add('checkInDate', DateType::class, [
                 'widget' => 'single_text',
                 'attr' => ['class' => 'form__control'],
-                'required' => true // هذا يضيف التحقق في الـ HTML
+                'required' => true
             ])
             ->add('checkOutDate', DateType::class, [
                 'widget' => 'single_text',

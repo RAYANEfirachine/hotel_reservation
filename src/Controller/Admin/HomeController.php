@@ -1,6 +1,4 @@
 <?php
-
-// 1. يجب أن يكون الـ Namespace هكذا لأن الملف داخل مجلد Admin
 namespace App\Controller\Admin;
 
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;

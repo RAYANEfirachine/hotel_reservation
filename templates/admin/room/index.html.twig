@@ -4,6 +4,29 @@
 
 {% block stylesheets %}
     <link rel="stylesheet" href="{{ asset('css/rooms_inventory.css') }}">
+    <style>
+        /* إضافة تنسيقات سريعة للصورة لضمان المظهر الفاخر */
+        .room-thumb {
+            width: 50px;
+            height: 50px;
+            object-fit: cover;
+            border-radius: 8px;
+            border: 1px solid #eee;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.05);
+        }
+        .no-image-placeholder {
+            width: 50px;
+            height: 50px;
+            background: #f5f5f5;
+            border-radius: 8px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 0.6rem;
+            color: #ccc;
+            border: 1px dashed #ddd;
+        }
+    </style>
 {% endblock %}
 
 {% block body %}
@@ -20,6 +43,7 @@
         <table class="rooms-table">
             <thead>
                 <tr>
+                    <th>Preview</th> {# العمود الجديد #}
                     <th>Ref ID</th>
                     <th>Room Number</th>
                     <th>Type</th>
@@ -30,11 +54,19 @@
             <tbody>
             {% for r in rooms %}
                 <tr>
+                    {# قسم عرض الصورة #}
+                    <td>
+                        {% if r.image %}
+                            <img src="{{ asset('uploads/rooms/' ~ r.image) }}" class="room-thumb" alt="Unit {{ r.roomNumber }}">
+                        {% else %}
+                            <div class="no-image-placeholder">No Image</div>
+                        {% endif %}
+                    </td>
+
                     <td style="color: #999;">#{{ r.id }}</td>
                     <td><strong>Unit {{ r.roomNumber }}</strong></td>
                     <td>{{ r.roomType.type }}</td>
                     <td>
-                        {# تطبيق كلاس الحالة تلقائياً بناءً على النص #}
                         <span class="status-pill {{ r.status|lower }}">
                             {{ r.status }}
                         </span>
@@ -50,7 +82,7 @@
                 </tr>
             {% else %}
                 <tr>
-                    <td colspan="5" style="text-align: center; padding: 50px; color: #999;">
+                    <td colspan="6" style="text-align: center; padding: 50px; color: #999;">
                         No rooms found in the inventory.
                     </td>
                 </tr>
