@@ -10,28 +10,36 @@
 <div class="edit-page-wrapper">
     <div class="form-container">
         <header class="form-header">
-            <h1>Refine Room Details</h1>
-            <p>Modify the attributes of Room #{{ room.roomNumber }} to maintain hotel excellence.</p>
+            <h1>LuxeStay</h1>
+            <p>Refining Excellence: Room #{{ room.roomNumber }}</p>
         </header>
 
-        {{ form_start(form) }}
+        {# إضافةattr enctype ضرورية جداً لعمل رفع الصور #}
+        {{ form_start(form, {'attr': {'enctype': 'multipart/form-data'}}) }}
+
             <div class="form-group-custom">
                 {{ form_label(form.roomNumber, 'Room Number') }}
                 {{ form_widget(form.roomNumber) }}
             </div>
 
             <div class="form-group-custom">
-                {{ form_label(form.roomType, 'Category & Tier') }}
+                {{ form_label(form.roomType, 'Category') }}
                 {{ form_widget(form.roomType) }}
             </div>
 
-            {# إذا كان لديك حقل للحالة (Status) أضفه هنا #}
-            {% if form.status is defined %}
             <div class="form-group-custom">
-                {{ form_label(form.status, 'Operational Status') }}
-                {{ form_widget(form.status) }}
+                <label>Room Image</label>
+                {# منطقة النقر التفاعلية #}
+                <div class="upload-area" id="drop-zone">
+                    <span id="upload-text">Click to change room photo</span>
+
+                    {# إخفاء حقل الملفات الأصلي وتفعيله عبر JS #}
+                    {{ form_widget(form.image, {'attr': {'class': 'file-input', 'style': 'display:none'}}) }}
+
+                    <img id="image-preview" class="preview-img" src="{{ room.image ? asset('uploads/rooms/' ~ room.image) : '#' }}"
+                         style="{{ room.image ? 'display:block' : 'display:none' }}">
+                </div>
             </div>
-            {% endif %}
 
             <div class="action-area">
                 <button type="submit" class="btn-update">Save Changes</button>
@@ -40,4 +48,32 @@
         {{ form_end(form) }}
     </div>
 </div>
+{% endblock %}
+
+{% block javascripts %}
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+        const dropZone = document.getElementById('drop-zone');
+        const fileInput = document.querySelector('.file-input');
+        const preview = document.getElementById('image-preview');
+        const uploadText = document.getElementById('upload-text');
+
+        // عند النقر على المربع، يتم فتح نافذة اختيار الملف
+        dropZone.addEventListener('click', () => fileInput.click());
+
+        // تحديث المعاينة فور اختيار ملف جديد
+        fileInput.addEventListener('change', function() {
+            const file = this.files[0];
+            if (file) {
+                const reader = new FileReader();
+                reader.onload = function(e) {
+                    preview.src = e.target.result;
+                    preview.style.display = 'block';
+                    if(uploadText) uploadText.style.display = 'none';
+                }
+                reader.readAsDataURL(file);
+            }
+        });
+    });
+</script>
 {% endblock %}
